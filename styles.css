@@ -1,0 +1,340 @@
+html 
+{
+    overflow-x: hidden; 
+}
+body
+{
+    overflow-x: hidden;
+    background: rgb(58,58,58);
+    color: white;
+    font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    min-width: 500px;
+}
+
+/*HEADER ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+.toggler
+{
+    display: none;
+}
+
+header
+{
+    display: block;
+    background: black;
+    height: 100px;
+    padding: 10px;
+    text-align: center;
+    margin: 0px;
+}
+header a
+{
+    z-index: 1;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+nav
+{
+    height: 100%;
+}
+nav .menu
+{
+    width: 100%;
+    height: 100%;
+}
+nav .face
+{
+    z-index: 1000;
+    float: left;
+    cursor: pointer;
+    position: absolute;
+}
+
+nav .face a
+{
+    transition: width 0.5s linear, height 0.5s linear, margin-left 0.5s linear, margin-top 0.5s linear;
+    display: flex;
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+    background-color: black;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+nav .face a img
+{
+    transition: margin-left 0.5s linear, margin-top 0.5s linear;
+    text-indent: -999999px;
+    height: 80%;
+    width: 80%;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+nav .face a:hover
+{
+    height: 190px;
+    width: 190px;
+    transition-duration: 0.3s;
+    margin-left: -5px;
+    margin-top: -5px;
+}
+nav .face a:hover > img
+{
+    margin-left: -5px;
+    margin-top: -5px;
+}
+
+nav .links
+{
+    margin: 0 auto;
+    width: 60%;
+}
+nav .links .nav-link
+{
+    position: relative;
+    vertical-align: middle;
+}
+nav .links .nav-link a
+{
+    z-index: 99;
+    cursor: pointer;
+    padding: 10px;
+    margin: 0px 10px;
+    position: relative;
+    top: 0;
+    font-size: 20px;
+}
+nav .menu div ul
+{
+    vertical-align: middle;
+}
+
+nav .nav-link a::before
+{    
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 0%;
+    height: 0%;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    opacity: 0;
+    transition: .5s;
+}
+nav .nav-link a:hover::before
+{
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+nav .nav-link a::after
+{    
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 0%;
+    height: 0%;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    opacity: 0;
+    transition: .5s;
+}
+nav .nav-link a:hover::after
+{
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+nav .current-page
+{
+    position: relative;
+    vertical-align: middle;
+}
+nav .current-page a
+{
+    z-index: 99;
+    cursor: pointer;
+    padding: 10px;
+    margin: 0px 10px;
+    position: relative;
+    top: 0;
+    font-size: 20px;
+}
+nav .current-page a::before
+{
+    content: "";
+    position: absolute;
+    justify-self: center;
+    bottom: 5px;
+    width: 80%;
+    border-bottom: 2px solid white;
+    opacity: 1;
+    border-radius: 10%;
+}
+
+
+nav ul
+{
+    margin: 0px;
+    padding: 0px;
+}
+nav li
+{
+    display: inline-block;
+}
+
+nav .title
+{
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    z-index: 1;
+    opacity: 1;
+    margin: 0 0 20px 0;
+}
+nav .title h1
+{
+    transition: font-size 0.5s linear;
+
+    height: 26px;
+    text-align: center;
+    margin: 0px 0px 5px 0px;
+    padding: 0px;
+}
+nav .title h1:hover
+{
+    font-size: 26px;
+
+}
+nav .title p
+{
+    margin: 0px;
+    padding: 0px;
+}
+
+nav .social
+{
+    display: flex;
+    float: right;
+    width: 20%;
+    height: 100%;
+}
+nav .social ul
+{
+    height: 40px;
+    margin: auto 20px auto auto;
+}
+nav .social li img
+{
+    width: 40px;
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px 5px;
+}
+
+/*HEADER ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+/*SECTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+section
+{
+    background: rgb(30,30,30);
+    position: relative;
+    width: 80%;
+    min-width: 620px;
+    margin: 0px;
+}
+
+.main-section
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 15px;
+    grid-row-gap: 50px;
+    justify-items: center;
+
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    position: relative;
+    background-size: 100%;
+}
+.main-section div
+{
+    background-color: black;
+    width: auto;
+    max-width: 350px;
+    min-width: 190px;
+    height: auto;
+    padding-bottom: 20px;
+    display: inline-block;
+}
+.main-section div a
+{
+    transition: filter 0.5s linear;
+    filter: grayscale(0%);
+}
+.main-section div a:hover
+{
+    transition: filter 0.5s linear;
+    filter: grayscale(100%);
+}
+.main-section div a ul
+{
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+}
+.main-section div a ul li
+{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.main-section div a ul li img
+{
+    display: inline-block;
+    width: 100%;
+}
+.main-section div a ul li p
+{
+    color: rgb(150,150, 150);
+}
+.project-display-text
+{
+    height: 30px;
+}
+
+/*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+/*FOOTER |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+.footer
+{
+    display: inline;
+    background-color: transparent;
+    width: 80%;
+    min-width: 620px;
+}
+
+footer
+{
+    display: relative;
+    font-size: 10px;
+    text-align: center;
+}
+
+/*FOOTER |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
