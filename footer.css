@@ -1,0 +1,18 @@
+/*FOOTER |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+.footer
+{
+    display: inline;
+    background-color: transparent;
+    width: 80%;
+    min-width: 620px;
+}
+
+footer
+{
+    display: relative;
+    font-size: 10px;
+    text-align: center;
+}
+
+/*FOOTER |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/

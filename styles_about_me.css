@@ -1,0 +1,109 @@
+/*SECTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+section
+{
+    background: rgb(30,30,30);
+    position: relative;
+    width: 80%;
+    min-width: 620px;
+    margin: 0px;
+}
+
+.main-section
+{
+    display: block;
+    justify-items: center;
+
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    position: relative;
+    background-size: 100%;
+    padding: 0px 0 50px 0;
+    transform: translate(0, -16px);
+}
+.main-section ul
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.main-section ul li
+{
+    display: block;
+}
+.main-section ul li h2
+{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 200px;
+}
+.main-section ul li p
+{
+    text-align: center;
+    color: rgb(160, 160, 160);
+}
+
+.main-section li div
+{
+    position: absolute;
+    top: 27%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s linear, height 0.5s linear, margin-left 0.5s linear, margin-top 0.5s linear;
+    display: flex;
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+    background-color: black;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+.main-section li div img
+{
+    transition: margin-left 0.5s linear, margin-top 0.5s linear;
+    text-indent: -999999px;
+    height: 80%;
+    width: 80%;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+.main-section li div:hover
+{
+    height: 190px;
+    width: 190px;
+    transition-duration: 0.3s;
+
+}
+
+
+
+.main-section a
+{
+    width: 60px;
+    align-self: center;
+}
+.main-section a:hover > .contact-button
+{
+    background-color: rgb(150,150,150);
+    cursor: pointer;
+}
+.main-section a::selection > .contact-button
+{
+    background-color: rgb(100,100,100);
+    cursor: pointer;
+}
+.contact-button
+{
+    background-color: rgb(225,225,225);
+    width: auto;
+    padding: 15px 20px 15px 20px;
+    border-radius: 25px;
+    color: black;
+    border: none;
+    margin-top: 20px;
+}
+
+/*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/

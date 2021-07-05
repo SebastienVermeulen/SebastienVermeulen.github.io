@@ -1,0 +1,75 @@
+/*SECTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+section
+{
+    background: rgb(30,30,30);
+    position: relative;
+    width: 80%;
+    min-width: 620px;
+    margin: 0px;
+}
+
+.main-section
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 15px;
+    grid-row-gap: 50px;
+    justify-items: center;
+
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    position: relative;
+    background-size: 100%;
+    padding: 50px 0 50px 0;
+}
+.main-section div
+{
+    background-color: black;
+    width: auto;
+    max-width: 350px;
+    min-width: 190px;
+    height: auto;
+    padding-bottom: 20px;
+    display: inline-block;
+}
+.main-section div a
+{
+    transition: filter 0.5s linear;
+    filter: grayscale(0%);
+}
+.main-section div a:hover
+{
+    transition: filter 0.5s linear;
+    filter: grayscale(100%);
+}
+.main-section div a ul
+{
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+}
+.main-section div a ul li
+{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.main-section div a ul li img
+{
+    display: inline-block;
+    width: 100%;
+}
+.main-section div a ul li p
+{
+    color: rgb(150,150, 150);
+    height: auto;
+}
+.project-display-text
+{
+    height: 30px;
+}
+
+/*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
