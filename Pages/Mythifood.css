@@ -21,4 +21,266 @@ section
     padding: 30px 0 30px 0;
 }
 
+p
+{
+    color: #a9a9a9;
+}
+
+.title
+{
+    display: block;
+    width: 100%;
+}
+.title h1
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+.title p
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+
+.discription
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+}
+.discription iframe
+{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 40px;
+    align-self: center;
+}
+.discription p
+{
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 1.8;
+    margin: 0 40px;
+}
+
+.game
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+}
+.game h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 0;
+    padding-left: 40px;
+}
+.game p
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin: 20px 40px;
+}
+.game img
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin: 20px 40px;
+}
+
+.info
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0px 0;
+}
+.info h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 0;
+    padding-left: 40px;
+}
+.info p
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin: 20px 40px;
+}
+.info img
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin: 20px 40px;
+}
+
+.postprocessing
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: center;
+    width: calc(100% - 80px);
+    margin: 0 40px 20px 40px;
+}
+.postprocessing div
+{
+    width: calc(50% - 40px);
+    height: auto;
+    display: inline-block;
+    margin: 0 20px 20px 20px;
+}
+#postprocessing-pic-1
+{
+    margin: 0;
+    margin-right: 10px;
+    width: calc(55% - 10px);
+    height: auto;
+}
+#postprocessing-pic-2
+{
+    margin: 0;
+    width: 45%;
+    height: auto;
+}
+#postprocessing-pic-1 img
+{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+#postprocessing-pic-2 img
+{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+.postprocessing div h2
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 20px 0px;
+}
+.postprocessing div p
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: center;
+    margin: 20px 0px 0px 0px;
+    width: auto;
+}
+
+.water-shader
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: center;
+    width: calc(100% - 80px);
+    margin: 0 40px 20px 40px;
+}
+.water-shader div
+{
+    width: calc(50% - 40px);
+    height: auto;
+    display: inline-block;
+    margin: 0 20px 20px 20px;
+}
+#water-shader-pic-1
+{
+    margin: 0;
+    margin-right: 10px;
+    width: calc(50% - 10px);
+    height: auto;
+}
+#water-shader-pic-2
+{
+    margin: 0;
+    width: 50%;
+    height: auto;
+}
+#water-shader-pic-1 img
+{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+#water-shader-pic-2 img
+{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+#water-shader-pic-3
+{
+    margin: 0;
+    margin-right: 10px;
+    width: calc(50% - 10px);
+    height: auto;
+}
+#water-shader-pic-4
+{
+    margin: 0;
+    width: 50%;
+    height: auto;
+}
+#water-shader-pic-3 img
+{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+#water-shader-pic-4 img
+{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+.water-shader h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 0;
+    padding-left: 40px;
+}
+.water-shader p
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin: 20px 40px 0px 40px;
+}
+
+.ymal
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0px 0;
+}
+.ymal h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 0;
+    padding-left: 40px;
+}
 /*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/

@@ -53,55 +53,119 @@
     </header>
     
     <section class="main-section">
-        <div>
-            <h2>Mythifood Adventures</h2>
+        <div class="title">
+            <h1>Mythifood Adventures</h1>
             <p>Fight and collect mythical food in a coop adventure</p>
         </div>
-        <div>
-            <iframe width="1393" height="493" src="https://www.youtube.com/embed/34f9UtjCJ8s" title="YouTube video player" frameborder="0" 
+        <div class="discription">
+            <iframe width="512" height="288" src="https://www.youtube.com/embed/34f9UtjCJ8s" title="YouTube video player" frameborder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <p>Adventure out into the world of Mythifoods,<br>
-               defeat and collect the various creates from out in<br>
-               the world to complete tasty recipes.
-               <br> 
-               Work together and complete the task<br>
-               with your trusty pot companion.
-               <br> 
-               Use your abilities to gain an advantage and stay on top!
+            <p>
+                Adventure out into the world of Mythifoods,<br>
+                defeat and collect the various creates from out in<br>
+                the world to complete tasty recipes.
+                <br><br> 
+                Work together and complete the task<br>
+                with your trusty pot companion.
+                <br><br> 
+                Use your abilities to gain an advantage and stay on top!
             </p>
         </div>
-        <div>
-            
+        <div class="game">
+            <h2>The Game</h2>
+            <p>
+                The game was made in 10 weeks, 2 of which are polish. It was made with a team of 5 people: 2 programmers and 3 artists.
+                <br>It was made as a group project at Digital Arts and Entertainment. With the target platform being the switch, although 
+                this was a stretch goal and a port has not yet been achieved.
+                <br><br>
+                The idea of the game is that you and a friend can hop into the world to explore and discover the creatures that live 
+                in it. You are chefs and have to complete recipes of your choice. To do that you need to collect the creatures, which are 
+                mythical versions of their real-world counterparts. A focus is put on teamplay as the players can dish out extra strong 
+                attacks when they are attached to each other.
+            </p>
+            <img src="../images/MF_gameplay_1.png?raw=true" alt="MF-gameplay-1">
         </div>
-        <div>
-            
+        <div class="info">
+            <h2>Post processing</h2>
+            <p>
+                I made some post processing materials to make the game clearer. And to give valuable info to the players.
+            </p>
         </div>
-        <div>
-            
+        <div class="postprocessing">
+            <div>
+                <h2>X-ray</h2>
+                <p>
+                    This effect makes players and creatures visible through other objects using a custom depth pass. 
+                    It colors the mask grey, which replaces the original colour on the render target.                
+                </p>
+            </div>
+            <div>
+                <h2>Outlines</h2>
+                <p>
+                    The defeated enemies spoil as they are ingredients, to show the player how spoilt they are I made an outline 
+                    that dynamically changes colour based on said value. The colour shifts from green to red. This method also uses 
+                    a custom depth pass but also samples the pixels surrounding the one being calculated.
+                </p>
+            </div>
+            <div id="postprocessing-pic-1">
+                <img src="../images/MF_gameplay_2.png?raw=true" alt="MF-gameplay-2">
+            </div>
+            <div id="postprocessing-pic-2">
+                <img src="../images/MF_gameplay_3.png?raw=true" alt="MF-gameplay-3">
+            </div>
         </div>
-        <div>
-            
+        <div class="info">
+            <h2>Water shader</h2>
+            <p>
+                A nice water shader was needed to make the scenes feels more alive. It needed to be cartoony and vibrant as well.
+            </p>
         </div>
-        <div>
-            
+        <div class="water-shader">
+            <div>
+                <h2>Edges</h2>
+                <p>
+                    So made a shader that has borders on all the edges where the water meets the ground. And I made it move slightly 
+                    by multiplying a noise texture with it.                
+                </p>
+            </div>
+            <div>
+                <h2>Depth fade</h2>
+                <p>
+                    Objects further away behind the water surface get blended away. This creates a nice transition below water.
+                </p>
+            </div>
+            <div id="water-shader-pic-1">
+                <img src="../images/MF_gameplay_4.png?raw=true" alt="MF-gameplay-4">
+            </div>
+            <div id="water-shader-pic-2">
+                <img src="../images/MF_gameplay_5.png?raw=true" alt="MF-gameplay-5">
+            </div>
+            <div>
+                <h2>Refraction and Normals</h2>
+                <p>
+                    2 normal maps are panned across the surface making it seem like the flat plane has movement going on. 
+                    This this into the refraction, as Fresnel is used to determine how much refraction should occur. As well 
+                    as the distance from the edge of the water.             
+                </p>
+            </div>
+            <div>
+                <h2>Emissive "reflections"</h2>
+                <p>
+                    On the top of the water surface there are these very "reflective" spots. That make the water seem very 
+                    clean and sparkly. This is done with 2 noise textures, panning them along. Multiplying and then masking 
+                    parts that aren't bright enough. Finally multiplying by a large number (to make them sparkle) and marking 
+                    those spots for emissiveness.                
+                </p>
+            </div>
+            <div id="water-shader-pic-3">
+                <img src="../images/MF_gameplay_4.png?raw=true" alt="MF-gameplay-4">
+            </div>
+            <div id="water-shader-pic-4">
+                <img src="../images/MF_gameplay_5.png?raw=true" alt="MF-gameplay-5">
+            </div>
         </div>
-        <div>
-            
-        </div>
-        <div>
-            
-        </div>
-        <div>
-            
-        </div>
-        <div>
-            
-        </div>
-        <div>
-            
-        </div>
-        <div>
-            
+        <div class="ymal">
+            <h2>You may also like</h2>
         </div>
     </section>
         
