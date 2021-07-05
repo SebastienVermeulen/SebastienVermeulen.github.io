@@ -1,0 +1,168 @@
+/*SECTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+section
+{
+    background: rgb(30,30,30);
+    position: relative;
+    width: 80%;
+    min-width: 620px;
+    margin: 0px;
+}
+
+.main-section
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    position: relative;
+    background-size: 100%;
+    padding: 30px 0 30px 0;
+}
+
+p
+{
+    color: #a9a9a9;
+}
+
+.title
+{
+    display: block;
+    width: 100%;
+}
+.title h1
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+.title p
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+
+.discription
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+}
+.discription img
+{
+    vertical-align: middle;
+    width: 480px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 40px;
+}
+.discription p
+{
+    width: 35%;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.8;
+    margin: 0 40px;
+}
+
+.making-of, .limits
+{
+    display: block;
+    width: 100%;
+}
+.making-of
+{
+    margin: 20px 0 0px 0;
+}
+.limits
+{
+    margin: 0;
+}
+.making-of img, .limits img
+{
+    display: inline-block;
+    width: calc(50% - 80px);
+    text-align: left;
+    margin: 20px 40px;
+    vertical-align: middle;
+}
+.making-of div, .limits div
+{
+    display: inline-block;
+    width: calc(49% - 80px);
+    text-align: left;
+    margin: 20px 40px;
+    vertical-align: middle;
+}
+.making-of div h2, .limits div h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 0;
+    padding-left: 40px;
+}
+.making-of div p, .limits div p
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin: 20px 40px;
+}
+
+.features
+{
+    display: block;
+    width: calc(100% - 80px);
+    margin: 0 40px 20px 40px;
+}
+.features img
+{
+    display: inline-block;
+    width: calc(33% - 10px);
+    text-align: left;
+    margin: 20px 5px;
+    vertical-align: middle;
+}
+.features div
+{
+    display: inline-block;
+    width: calc(33% - 80px);
+    text-align: left;
+    margin: 20px 40px;
+    vertical-align: middle;
+}
+
+.link
+{
+    text-align: center;
+    width: 100%;
+}
+.link p
+{
+    margin-top: 0;
+}
+
+.ymal
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0px 0;
+}
+.ymal h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 40px;
+}
+/*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
