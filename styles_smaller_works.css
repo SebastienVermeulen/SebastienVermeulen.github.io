@@ -39,6 +39,8 @@ section
 {
     transition: filter 0.5s linear;
     filter: grayscale(0%);
+    text-decoration: none;
+    color: inherit;
 }
 .main-section div a:hover
 {
