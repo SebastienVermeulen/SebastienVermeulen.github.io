@@ -1,0 +1,184 @@
+/*SECTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+section
+{
+    background: rgb(30,30,30);
+    position: relative;
+    width: 80%;
+    min-width: 620px;
+    margin: 0px;
+}
+
+.main-section
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    position: relative;
+    background-size: 100%;
+    padding: 30px 0 30px 0;
+}
+
+p
+{
+    color: #a9a9a9;
+}
+
+.title
+{
+    display: block;
+    width: 100%;
+}
+.title h1
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+.title p
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+
+.discription
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+}
+.discription img
+{
+    vertical-align: middle;
+    width: 480px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 40px;
+}
+.discription p
+{
+    width: 35%;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.8;
+    margin: 0 40px;
+}
+
+.game
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+}
+.game h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 0;
+    padding-left: 40px;
+}
+.game p
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin: 20px 40px;
+}
+.game video
+{
+    display: block;
+    width: 60%;
+    height: auto;
+    margin: 20px auto;
+}
+
+.level-parser
+{
+    display: block;
+    width: calc(100% - 80px);
+    margin: 0 40px 0px 40px;
+}
+.level-parser img
+{
+    display: inline-block;
+    width: calc(33% - 10px);
+    text-align: left;
+    margin: 20px 5px;
+    vertical-align: middle;
+}
+.level-parser div
+{
+    display: inline-block;
+    width: calc(33% - 80px);
+    text-align: left;
+    margin: 0px 40px;
+    vertical-align: middle;
+}
+
+.post-processing
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 20px 40px;
+}
+.post-processing video
+{
+    float: right;
+    vertical-align: middle;
+    width: 480px;
+    height: auto;
+    vertical-align: middle;
+}
+.post-processing div
+{
+    width: 50%;
+    vertical-align: middle;
+    margin: 0 40px;
+    float: left;
+}
+.post-processing div h2
+{
+    text-align: left;
+}
+.post-processing div p 
+{
+    text-align: left;
+}
+
+.link
+{
+    text-align: center;
+    width: 100%;
+}
+.link p
+{
+    margin-top: 0;
+}
+
+.ymal
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0px 0;
+}
+.ymal h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 40px;
+}
+/*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/

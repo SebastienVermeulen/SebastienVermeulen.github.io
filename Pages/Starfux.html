@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sebastien Vermeulen</title>
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="Starfux.css">
+    <link rel="stylesheet" href="../footer.css">
+    <meta id="viewport" name="viewport">
+</head>
+<body>
+    <header>
+        <nav>
+            <input type="checkbox" class="toggler">
+            <div class="hamburger"><div></div></div>
+            <div class="menu">
+                <div class="face">
+                    <a href="../about_me.html">
+                        <img src="../images/profile.png?raw=true" alt="profile">
+                    </a>
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="social-link"><a href="https://www.linkedin.com/in/sebastien-vermeulen-ab0900194/">
+                            <img src="../images/linkedin_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="https://github.com/SebastienVermeulen">
+                            <img src="../images/github_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="mailto:Sebastienvermeulen123@gmail.com">
+                            <img src="../images/email_symbol.png?raw=true" alt="email-symbol">
+                        </a></li>
+                    </ul>
+                </div>
+                <div class="links">
+                    <ul>
+                        <a href="../index.html">
+                            <li class="title">
+                                <h1>SEBASTIEN VERMEULEN</h1>
+                                <p>- Generalist Programmer Working Towards Graphics Programmer -</p>
+                            </li>
+                        </a>
+                    </ul>
+                    <ul>
+                        <li class="nav-link"><a href="../index.html">Work</a></li>
+                        <li class="nav-link"><a href="../smaller_works.html">Smaller works</a></li>
+                        <li class="nav-link"><a href="https://drive.google.com/file/d/1O5KXx41VohTSduz4L2dEfrPbwz5SfW_z/view" target="_blank">Resume</a></li>
+                        <li class="nav-link"><a href="../about_me.html">About me</a></li>
+                        <li class="nav-link"><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="main-section">
+        <div class="title">
+            <h1>StarFux</h1>
+            <p>Game made in a DirectX11 using engine provided by Digital Arts & Entertainment.</p>
+        </div>
+        <div class="discription">
+            <img src="../images/SF_gameplay_1.png" alt="SF-gameplay-1">
+            <p>
+                StarFux is a game based on the original Starfox.
+                <br>But implemented in an custom engine that uses DirectX11.
+                <br><br>
+                Fly through a cityscape and avoid the buildings around you.
+                <br>Boost to reach your destination earlier
+            </p>
+        </div>
+        <div class="game">
+            <div>
+                <h2>The Game</h2>
+                <p>
+                    A project focused on the use of a custom DirectX11 based engine. 
+                    This engine was provided by Digital Arts & Entertainment, in an 
+                    unfinished state. It was the task to finish up the functionality 
+                    and create a game using it. The game in question is the original 
+                    Startfox.
+                    <br><br>The game has not as many features as Starfox but allows the 
+                    player to navigate through a short level. If the player hits a 
+                    building he will die. The player can boost as well, at which 
+                    point a post processing effect shall be enabled. A victory screen 
+                    or a game over screen shall be shown at the end of the level.
+                </p>
+            </div>
+            <video width="320" height="240" controls>
+                <source src="../Images/SF_gameplay_2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="level-parser">
+            <div>
+                <h2>Level parser</h2>
+                <p>
+                    A parser allowed mt so more easily add new buildings and textures. 
+                    As well as an easy way for me to move, scale and rotate them.
+                </p>
+            </div>
+            <img id="effects-pic-1" src="../images/SF_gameplay_3.png" alt="SF-gameplay-3">
+            <img id="effects-pic-2" src="../images/SF_gameplay_4.png" alt="SF-gameplay-4">
+        </div>
+        <div class="post-processing">
+            <div>
+                <h2>Post processing</h2>
+                <p>
+                    A nice effect in the game is the heat haze post processing effect. 
+                    Making the screen wavy as if hot air is rising in front of the 
+                    camera. This effect was achieved by using a 3D texture. That 
+                    offsets the pixels on the rendered image by a certain amount. By 
+                    stepping through the layers of this image over time the effect of 
+                    motion is created. And moving it upwards at a slow rate makes it 
+                    seem like the heat is rising.
+                    <br><br>The other effects are vignette, which just multiplies the pixel 
+                    based position of said pixel. Also a pixeliser, which takes the 
+                    color of a common pixel based on a given size variable.    
+                </p>
+            </div>
+            <video width="320" height="240" controls>
+                <source src="../Images/SF_gameplay_2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="link">
+            <p>
+                Take a look at the project here on: <a id="github" href="https://github.com/SebastienVermeulen/StarFux" target="_blank">GitHub</a>
+            </p>
+        </div>
+        <div class="ymal">
+            <h2>You may also like</h2>
+        </div>
+    </section>
+        
+    <section class="footer">
+        <footer>
+            <p><strong>Sebastien Vermeulen</strong> - Tel.:+32(0)49/424.17.86 - E-mail: Sebastienvermeulen123@gmail.com</p>
+        </footer>
+    </section>
+</body>
+</html>
