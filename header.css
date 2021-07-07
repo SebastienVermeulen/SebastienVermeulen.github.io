@@ -38,7 +38,6 @@ header a
     z-index: 1;
     color: white;
     text-decoration: none;
-    text-transform: uppercase;
 }
 
 nav
@@ -114,6 +113,12 @@ nav .links .nav-link a
     position: relative;
     top: 0;
     font-size: 20px;
+}
+nav .links ul a li p
+{
+    text-transform: none;
+    color: rgb(200,200,200);
+    font-size: 18;
 }
 nav .menu div ul
 {

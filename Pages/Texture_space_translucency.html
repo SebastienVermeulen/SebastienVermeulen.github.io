@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sebastien Vermeulen</title>
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="Texture_space_translucency.css">
+    <link rel="stylesheet" href="../footer.css">
+    <meta id="viewport" name="viewport">
+</head>
+<body>
+    <header>
+        <nav>
+            <input type="checkbox" class="toggler">
+            <div class="hamburger"><div></div></div>
+            <div class="menu">
+                <div class="face">
+                    <a href="../about_me.html">
+                        <img src="../images/profile.png?raw=true" alt="profile">
+                    </a>
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="social-link"><a href="https://www.linkedin.com/in/sebastien-vermeulen-ab0900194/">
+                            <img src="../images/linkedin_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="https://github.com/SebastienVermeulen">
+                            <img src="../images/github_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="mailto:Sebastienvermeulen123@gmail.com">
+                            <img src="../images/email_symbol.png?raw=true" alt="email-symbol">
+                        </a></li>
+                    </ul>
+                </div>
+                <div class="links">
+                    <ul>
+                        <a href="../index.html">
+                            <li class="title">
+                                <h1>SEBASTIEN VERMEULEN</h1>
+                                <p>- Generalist Programmer Working Towards Graphics Programmer -</p>
+                            </li>
+                        </a>
+                    </ul>
+                    <ul>
+                        <li class="nav-link"><a href="../index.html">Work</a></li>
+                        <li class="nav-link"><a href="../smaller_works.html">Smaller works</a></li>
+                        <li class="nav-link"><a href="https://drive.google.com/file/d/1O5KXx41VohTSduz4L2dEfrPbwz5SfW_z/view" target="_blank">Resume</a></li>
+                        <li class="nav-link"><a href="../about_me.html">About me</a></li>
+                        <li class="nav-link"><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="main-section">
+        <div class="title">
+            <h1>Texture Space Translucency in Commercial Engines</h1>
+            <p>Real time Texture Space Translucency in Unity as research</p>
+        </div>
+        <div class="discription">
+            <img src="../images/TST_gameplay_3.png" alt="TST_gameplay_3">
+            <p>
+                This work showcases raymarching through shaders.
+                <br>just drawing basic shapes on the screen and working
+                <br>towards instancing and other nifty effects.
+                <br><br>
+                I also produced a quadratic mandelbulb, like a 3D version of the Mandelbrot set. 
+            </p>
+        </div>
+        <div class="marching">
+            <div>
+                <h2>Marching</h2>
+                <p>
+                    Starting off I made a shader that could simply ray march to detect an object. The first objects I made where 
+                    the sphere and the cube. This got me familiar enough with raymarching to continue on to more difficult things 
+                    concerning the subject.
+                    <br><br>I also added some simple shading to the shapes to make depth clearer, by taking the dot product between 
+                    the surface normal and the light direction.
+                </p>
+            </div>
+            <img src="../images/R_gameplay_2.png" alt="R-gameplay-2">
+        </div>
+        <div class="instancing">
+            <div>
+                <h2>Instancing</h2>
+                <p>
+                    I wanted more complex objects in my shader and a way to accomplish this is to instance them. This generates 
+                    more complex structures, in other words you make the same thing appear multiple times with very little 
+                    performance loss.
+                    <br>Visible at: <a href="https://www.shadertoy.com/view/WsyyzD" target="_blank">Shadertoy</a>
+                </p>
+            </div>
+            <img id="instancing-pic-1" src="../images/R_gameplay_3.png" alt="R-gameplay-3">
+            <img id="instancing-pic-2" src="../images/R_gameplay_4.png" alt="R-gameplay-4">
+        </div>
+        <div class="effects">
+            <div>
+                <h2>Effects</h2>
+                <p>
+                    Raymarching allows for some computationally cheap effects to be added. Like for example: glow, hard shadows, 
+                    soft shadows and fog. With this shader I wanted to show these off with a moving light.
+                    <br>Visible at: <a href="https://www.shadertoy.com/view/tdyyRW" target="_blank">Shadertoy</a>
+                </p>
+            </div>
+            <img id="effects-pic-1" src="../images/R_gameplay_5.png" alt="R-gameplay-5">
+            <img id="effects-pic-2" src="../images/R_gameplay_6.png" alt="R-gameplay-6">
+        </div>
+        <div class="mandelbulb">
+            <div>
+                <h2>The quadratic mandelbulb</h2>
+                <p>
+                    A 3d versions of the Mandelbrot set. I find these very interesting from a mathematical standpoint as well as 
+                    aesthetically pleasing to look at. The mandelbrot on the left is the quadratic version of the mandelbulb. 
+                    And the one on the right uses a sine wave to transition between the power of 2 and 18, to create a mandelbulb.
+                    <br>Visible at: <a href="https://www.shadertoy.com/view/tdVcWW" target="_blank">Shadertoy</a>
+                </p>
+            </div>
+            <img id="mandelbulb-pic-1" src="../images/R_gameplay_7.png" alt="R-gameplay-7">
+            <img id="mandelbulb-pic-2" src="../images/R_gameplay_8.png" alt="R-gameplay-8">
+        </div>
+        <div class="ymal">
+            <h2>You may also like</h2>
+        </div>
+    </section>
+        
+    <section class="footer">
+        <footer>
+            <p><strong>Sebastien Vermeulen</strong> - Tel.:+32(0)49/424.17.86 - E-mail: Sebastienvermeulen123@gmail.com</p>
+        </footer>
+    </section>
+</body>
+</html>
