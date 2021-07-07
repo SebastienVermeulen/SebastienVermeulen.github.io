@@ -144,11 +144,22 @@ p
     text-align: right;
     margin: 0 0 0 5px;
 }
-.contributions video
+.contributions .video
 {
+    position: relative;
+    display: block;
     width: 80%;
-    height: auto;
-    margin: 20px 40px;
+    left: 10%;
+    padding-top: 43%;
+    overflow: hidden;
+}
+.contributions .video iframe
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
 }
 
 .ymal
