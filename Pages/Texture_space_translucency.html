@@ -88,7 +88,7 @@
                     image to the right.
                     <br><br>
                     A way to simulate these lightrays going through our 
-                    object/materials is needed. That way a approximation can be 
+                    object/materials is needed. That way an approximation can be 
                     made using some good old math, the amount of light coming out 
                     of a position and thus the coloration of the material. The 
                     technique used is shown in the presentation by 
@@ -129,7 +129,7 @@
                 <h2>Compute shader</h2>
                 <p>
                     The translucency calculations need some parameters to function correctly.
-                    In particular the avarage depth of a object at each position (in our case each vertex),
+                    In particular the avarage depth of an object at each position (in our case each vertex),
                     which can normally be achieved through raytracign capable hardware in real time. 
                     Unfortunately for me my hardware is not RTX capable, so an alternative was needed.
                     Easy enough! In the raytraced solution mentioned in the SEED presentation the gathered 
@@ -148,7 +148,7 @@
                     starting position for the ray, the vertex position must be added to the unit vector of 
                     the inversed vertex normal, as shown on Figure 6: The steps of the sampling method. 
                     From here a random direction may be chosen for the ray direction. It was suggested in 
-                    the research of <a target="_blank" href="https://media.contentapi.ea.com/content/dam/ea/seed/presentations/barrebrisebois2019-state-of-the-art-and-challenges-in-game-ray-tracing-release.pdf">Barré-Brisebois</a>, 
+                    the research of <a target="_blank" href="https://youtu.be/rhlGBCSv02M?t=2513">Barré-Brisebois</a>, 
                     that an importance-sample phase function would be used for this. But this goes 
                     beyond the scope of this research. Rather a noise texture will be used to sample a 
                     normal from.
