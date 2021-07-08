@@ -228,4 +228,38 @@ p
     margin-right: 40px;
     margin-left: 10px;
 }
+
+.main-section .github
+{
+    width: 100%;
+    display: block;
+    position: relative;
+}
+.main-section .github a
+{
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    left: 25%;
+}
+.main-section .github a:hover > .main-section .github button
+{
+    background-color: rgb(150,150,150);
+    cursor: pointer;
+}
+.main-section .github a::selection > .main-section .github button
+{
+    background-color: rgb(100,100,100);
+    cursor: pointer;
+}
+.main-section .github button
+{
+    background-color: rgb(225,225,225);
+    width: auto;
+    padding: 15px 20px 15px 20px;
+    border-radius: 25px;
+    color: black;
+    border: none;
+    margin-top: 20px;
+}
 /*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
