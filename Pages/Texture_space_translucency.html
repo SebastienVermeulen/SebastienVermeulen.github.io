@@ -63,61 +63,128 @@
                 Seeing Translucency implemented in a commercially available engine
                 was the goal of this research. As well as the performance of the 
                 implementation. 
-                <br><br>While creating a demo showing the capabilities of the 
+                <br><br>
+                While creating a demo showing the capabilities of the 
                 techniques, that is accesable enough where the user can easily 
                 try and adjust settings for himself.
+                <br><br>
+                The demo was made in Unity.
             </p>
         </div>
-        <div class="marching">
+        <div class="translucency-physics">
             <div>
-                <h2>Marching</h2>
+                <h2>Translucency physics</h2>
                 <p>
-                    Starting off I made a shader that could simply ray march to detect an object. The first objects I made where 
-                    the sphere and the cube. This got me familiar enough with raymarching to continue on to more difficult things 
-                    concerning the subject.
-                    <br><br>I also added some simple shading to the shapes to make depth clearer, by taking the dot product between 
-                    the surface normal and the light direction.
+                    Let's have a quick and basic rundown surrounding translucency 
+                    so as to understand what it is and does. Making it easier to 
+                    understand what was accomplished with this project.
+                    <br><br>
+                    Translucency is similar to transparancy as both phenomena are 
+                    the result of light particles moving through a medium. In 
+                    transparant objects like glass, the light can basically move 
+                    in a single straight line. But for transparant object/materials 
+                    the light gets scattered below the surface, causing it to give
+                    of what can be discribed as a "shine". Which can be seen in the 
+                    image to the right.
+                    <br><br>
+                    A way to simulate these lightrays going through our 
+                    object/materials is needed. That way a approximation can be 
+                    made using some good old math, the amount of light coming out 
+                    of a position and thus the coloration of the material. The 
+                    technique used is shown in the presentation by 
+                    <a target="_blank" href="https://media.contentapi.ea.com/content/dam/ea/seed/presentations/barrebrisebois2019-state-of-the-art-and-challenges-in-game-ray-tracing-release.pdf">SEED - EA</a>
+                    , slide: 55 - 63.
+                    <br><br>
+                    Now with that introduction behind us lets delve into the project!
                 </p>
             </div>
-            <img src="../images/R_gameplay_2.png" alt="R-gameplay-2">
+            <img src="../images/TST_gameplay_4.png" alt="TST_gameplay_4">
         </div>
-        <div class="instancing">
+        <div class="baking">
             <div>
-                <h2>Instancing</h2>
+                <h2>Baking</h2>
                 <p>
-                    I wanted more complex objects in my shader and a way to accomplish this is to instance them. This generates 
-                    more complex structures, in other words you make the same thing appear multiple times with very little 
-                    performance loss.
-                    <br>Visible at: <a href="https://www.shadertoy.com/view/WsyyzD" target="_blank">Shadertoy</a>
+                    Engines don’t often come with a full and adjustable baking 
+                    implementation made. So, making a simple and robust method to 
+                    do it might be needed. A good example of this in the Unity engine 
+                    is from <a href="https://snayss.medium.com/bake-a-pretty-or-computationally-challenging-shader-into-a-texture-unity-b524569d7384" target="_blank">Snelha Belkhale</a>. 
+                    In which an orthographic camera and some custom shaders are used 
+                    to render data onto a target and then save that target to a proper 
+                    image.
+                    <br><br>
+                    Some progress pictures are visible below, with the right most being 
+                    the final result:
                 </p>
             </div>
-            <img id="instancing-pic-1" src="../images/R_gameplay_3.png" alt="R-gameplay-3">
-            <img id="instancing-pic-2" src="../images/R_gameplay_4.png" alt="R-gameplay-4">
+            <div class="creation-images">
+                <img id="MS_gameplay_2" src="../images/TST_gameplay_5.png" alt="TST_gameplay_5">
+                <img id="MS_gameplay_3" src="../images/TST_gameplay_6.png" alt="TST_gameplay_6">
+                <img id="MS_gameplay_4" src="../images/TST_gameplay_7.png" alt="TST_gameplay_7">
+                <img id="MS_gameplay_5" src="../images/TST_gameplay_8.png" alt="TST_gameplay_8">
+                <img id="MS_gameplay_6" src="../images/TST_gameplay_9.png" alt="TST_gameplay_9">
+            </div>
         </div>
-        <div class="effects">
+        <div class="compute">
             <div>
-                <h2>Effects</h2>
+                <h2>Compute shader</h2>
                 <p>
-                    Raymarching allows for some computationally cheap effects to be added. Like for example: glow, hard shadows, 
-                    soft shadows and fog. With this shader I wanted to show these off with a moving light.
-                    <br>Visible at: <a href="https://www.shadertoy.com/view/tdyyRW" target="_blank">Shadertoy</a>
+                    The translucency calculations need some parameters to function correctly.
+                    In particular the avarage depth of a object at each position (in our case each vertex),
+                    which can normally be achieved through raytracign capable hardware in real time. 
+                    Unfortunately for me my hardware is not RTX capable, so an alternative was needed.
+                    Easy enough! In the raytraced solution mentioned in the SEED presentation the gathered 
+                    data is stored into a texture. So we can do this as well beforehand and just keep using 
+                    the same data. This way the hardware requirements are cirumvented altough perhaps 
+                    at a loss of some visual fidelity.
                 </p>
             </div>
-            <img id="effects-pic-1" src="../images/R_gameplay_5.png" alt="R-gameplay-5">
-            <img id="effects-pic-2" src="../images/R_gameplay_6.png" alt="R-gameplay-6">
+            <div class="creation-images">
+                <img src="../images/TST_gameplay_10.jpg" alt="TST_gameplay_10">
+                <p>
+                    Credit: <a target="_blank" href="https://media.contentapi.ea.com/content/dam/ea/seed/presentations/barrebrisebois2019-state-of-the-art-and-challenges-in-game-ray-tracing-release.pdf">SEED - EA</a>
+                    <br><br>
+                    The following steps will need to be executed. Our calculations shall be done per vertex 
+                    of the mesh, so a high-poly mesh is preferred to carry across more details. To get the 
+                    starting position for the ray, the vertex position must be added to the unit vector of 
+                    the inversed vertex normal, as shown on Figure 6: The steps of the sampling method. 
+                    From here a random direction may be chosen for the ray direction. It was suggested in 
+                    the research of <a target="_blank" href="https://media.contentapi.ea.com/content/dam/ea/seed/presentations/barrebrisebois2019-state-of-the-art-and-challenges-in-game-ray-tracing-release.pdf">Barré-Brisebois</a>, 
+                    that an importance-sample phase function would be used for this. But this goes 
+                    beyond the scope of this research. Rather a noise texture will be used to sample a 
+                    normal from.
+                    <br><br>
+                    Having both the origin of the ray as well as the direction, a ray-cast can be made on 
+                    the polygons of the mesh. From this the distance to the intersection point is kept and 
+                    if there is more than 1 sample per vertex, it can average out the result. This way, 
+                    a smoother and more accurate value can be achieved. The depth value can then be stored 
+                    in the vertex color to be baked out in a texture later.
+                </p>
+            </div>
         </div>
-        <div class="mandelbulb">
+        <div class="render">
             <div>
-                <h2>The quadratic mandelbulb</h2>
+                <h2>Rendering</h2>
                 <p>
-                    A 3d versions of the Mandelbrot set. I find these very interesting from a mathematical standpoint as well as 
-                    aesthetically pleasing to look at. The mandelbrot on the left is the quadratic version of the mandelbulb. 
-                    And the one on the right uses a sine wave to transition between the power of 2 and 18, to create a mandelbulb.
-                    <br>Visible at: <a href="https://www.shadertoy.com/view/tdVcWW" target="_blank">Shadertoy</a>
+                    Finally the rendering, placing a material that uses a shader with the Beer-Lambert 
+                    calculation. As mentioned before possible idea was to have the precomputed step in 
+                    the vertex shader. Yet due to hardware limitations and time constraints, I was 
+                    unable to test this claim.
+                    <br><br>
+                    The fear of it simply being too expensive to render even 1 sample per frame on my current 
+                    hardware is a concern. On heavier system capable of RTX-raytracing and the associated 
+                    shaders in Unity this the issue would most likely not be there. Yet that is speculation 
+                    as the implementation was run on a system with a GTX 1050ti. All this very much 
+                    exemplifying the reason data is precomputed, especially for older systems.
+                    <br><br>
+                    Here you can see some of the final result:
                 </p>
             </div>
-            <img id="mandelbulb-pic-1" src="../images/R_gameplay_7.png" alt="R-gameplay-7">
-            <img id="mandelbulb-pic-2" src="../images/R_gameplay_8.png" alt="R-gameplay-8">
+            <img id="effects-pic-1" src="../images/TST_gameplay_1.png" alt="TST-gameplay-1">
+            <img id="effects-pic-2" src="../images/TST_gameplay_2.png" alt="TST-gameplay-2">
+        </div>
+        <div class="results">
+            <img id="results-pic-1" src="../images/TST_gameplay_11.gif" alt="TST-gameplay-11">
+            <img id="results-pic-2" src="../images/TST_gameplay_12.gif" alt="TST-gameplay-12">
         </div>
     </section>
         

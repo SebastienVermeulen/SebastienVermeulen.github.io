@@ -73,82 +73,159 @@ p
     margin: 0 40px;
 }
 
-.marching
+.translucency-physics
 {
-    display: block;
-    width: 100%;
+    display: flex;
+    width: calc(100% - 80px);
     text-align: center;
     margin: 20px 40px;
+    flex-wrap: nowrap;
 }
-.marching img
-{
-    float: right;
-    vertical-align: middle;
-    width: 480px;
-    height: auto;
-    vertical-align: middle;
-}
-.marching div
+.translucency-physics img
 {
     width: 50%;
+    height: auto;
+    position: relative;
+    margin: auto 40px;
+    display: inline-block;
     vertical-align: middle;
-    margin: 0 40px;
-    float: left;
 }
-.marching div h2
+.translucency-physics div
+{
+    width: 50%;
+    margin: 0 40px;
+}
+.translucency-physics div h2
 {
     text-align: left;
 }
-.marching div p 
+.translucency-physics div p 
 {
     text-align: left;
 }
 
-.instancing, .effects, .mandelbulb
+.baking
 {
     display: block;
     width: calc(100% - 80px);
+    text-align: center;
+    margin: 0px 40px 20px 40px;
+    position: relative;
+}
+.baking h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 0;
+    padding-left: 40px;
+}
+.baking p
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin: 20px 40px 20px 40px;
+}
+.baking .creation-images
+{
+    display: flex;
+    flex-wrap: nowrap;
+    width: calc(100% - 80px);
+    margin: 5px 40px 20px 40px;
+}
+.baking .creation-images img
+{
+    display: inline-block;
+    width: 20%;
+    margin: 0px 5px;
+}
+
+.compute
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: center;
+    margin: 0px 40px 20px 40px;
+    position: relative;
+}
+.compute h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 0;
+    padding-left: 40px;
+}
+.compute p
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin: 20px 40px 20px 40px;
+}
+.compute .creation-images
+{
+    display: block;
+    width: calc(100% - 80px);
+    margin: 0px 40px 20px 40px;
+}
+.compute .creation-images img
+{
+    display: inline-block;
+    width: 100%;
+    margin: 0px 0px;
+}
+.compute .creation-images p
+{
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    margin: 0px 0px;
+}
+
+.render
+{
+    display: flex;
+    flex-wrap: nowrap;
+    width: calc(100% - 80px);
     margin: 0 40px 0px 40px;
 }
-.instancing img, .effects img, .mandelbulb img
+.render img
 {
     display: inline-block;
-    width: calc(33% - 10px);
+    width: 33%;
     text-align: left;
-    margin: 20px 5px;
+    margin: 20px 0px;
     vertical-align: middle;
 }
-.instancing div, .effects div, .mandelbulb div
+.render div
 {
     display: inline-block;
-    width: calc(33% - 80px);
+    width: 33%;
     text-align: left;
     margin: 0px 40px;
     vertical-align: middle;
 }
 
-.link
+.results
 {
-    text-align: center;
-    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    width: calc(100% - 80px);
+    margin: 0 40px;
+    justify-content: center;
 }
-.link p
+#results-pic-1
 {
-    margin-top: 0;
+    width: 40%;
+    margin-left: 40px;
+    margin-right: 10px;
 }
-
-.ymal
+#results-pic-2
 {
-    display: block;
-    width: 100%;
-    text-align: center;
-    margin: 0px 0;
-}
-.ymal h2
-{
-    display: block;
-    width: 100%;
-    text-align: left;
-    margin: 20px 40px;
+    width: 40%;
+    margin-right: 40px;
+    margin-left: 10px;
 }
 /*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
