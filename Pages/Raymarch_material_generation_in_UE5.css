@@ -1,0 +1,269 @@
+/*SECTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+section
+{
+    background: rgb(30,30,30);
+    position: relative;
+    width: 1200px;
+    min-width: 620px;
+    margin: 0px;
+}
+
+.main-section
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    position: relative;
+    background-size: 100%;
+    padding: 30px 0 30px 0;
+}
+
+p
+{
+    color: #a9a9a9;
+}
+
+.title
+{
+    display: block;
+    width: 100%;
+}
+.title h1
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+.title p
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+
+.discription
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+}
+.discription img
+{
+    vertical-align: middle;
+    width: 480px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 40px;
+}
+.discription p
+{
+    width: 35%;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.8;
+    margin: 0 40px;
+}
+
+.editor-changes
+{
+    display: flex;
+    width: calc(100% - 80px);
+    text-align: center;
+    margin: 20px 40px;
+    flex-wrap: nowrap;
+}
+.editor-changes img
+{
+    width: 50%;
+    height: auto;
+    position: relative;
+    margin: auto 40px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.editor-changes div
+{
+    width: 50%;
+    margin: 0 40px;
+}
+.editor-changes div h2
+{
+    text-align: left;
+}
+.editor-changes div p 
+{
+    text-align: left;
+}
+
+.material-generation
+{
+    display: flex;
+    width: calc(100% - 80px);
+    text-align: center;
+    margin: 0px 40px 20px 40px;
+    position: relative;
+    flex-wrap: nowrap;
+}
+.material-generation div
+{
+    display: grid;
+    align-content: center;
+}
+
+.raymarching
+{
+    display: flex;
+    flex-wrap: nowrap;
+    width: calc(100% - 80px);
+    margin: 0 40px 0px 40px;
+}
+.raymarching iframe
+{
+    display: inline-block;
+    width: 66%;
+    height: calc(100% - 180px);
+    text-align: center;
+    margin: 90px 0px;
+    vertical-align: middle;
+}
+.raymarching div
+{
+    display: inline-block;
+    width: 33%;
+    text-align: left;
+    margin: 0px 40px;
+    vertical-align: middle;
+}
+
+.material-generation h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: auto 0 20px 0;
+    padding-left: 40px;
+}
+.material-generation p
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin: auto 40px 20px 40px;
+}
+.material-generation .creation-images
+{
+    display: flex;
+    flex-wrap: nowrap;
+    width: calc(200% - 80px);
+    margin: 5px 40px 20px 40px;
+}
+.material-generation .creation-images img
+{
+    display: inline-block;
+    width: 50%;
+    margin: 0px 5px;
+}
+
+.physics
+{
+    display: flex;
+    flex-wrap: nowrap;
+    width: calc(100% - 80px);
+    margin: 0 40px 0px 40px;
+    height: 550px;
+}
+.physics div
+{
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+    margin: 0px 40px 40px 40px;
+    vertical-align: middle;
+}
+.physics iframe
+{
+    margin: 20px 0 0 10px;
+}
+.physics .pictures
+{
+    display: flex;
+    width: 100%;
+    height: 50%;
+    text-align: left;
+    margin: 0px 40px 0px 0px;
+    vertical-align: middle;
+    flex-wrap: no-wrap;
+}
+.physics .pictures img
+{
+    text-align: left;
+    margin: auto;
+    vertical-align: middle;
+    max-width: 246px;
+    min-height: 246px;
+}
+
+.results
+{
+    display: flex;
+    flex-wrap: nowrap;
+    width: calc(100% - 80px);
+    margin: 0 40px;
+    justify-content: center;
+}
+#results-pic-1
+{
+    width: 40%;
+    margin-left: 40px;
+    margin-right: 10px;
+}
+#results-pic-2
+{
+    width: 40%;
+    margin-right: 40px;
+    margin-left: 10px;
+}
+
+.main-section .github
+{
+    width: 100%;
+    display: block;
+    position: relative;
+}
+.main-section .github a
+{
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    left: 25%;
+}
+.main-section .github a:hover > .main-section .github button
+{
+    background-color: rgb(150,150,150);
+    cursor: pointer;
+}
+.main-section .github a::selection > .main-section .github button
+{
+    background-color: rgb(100,100,100);
+    cursor: pointer;
+}
+.main-section .github button
+{
+    background-color: rgb(225,225,225);
+    width: auto;
+    padding: 15px 20px 15px 20px;
+    border-radius: 25px;
+    color: black;
+    border: none;
+    margin-top: 20px;
+}
+/*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
