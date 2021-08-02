@@ -84,7 +84,7 @@
                 Starting of this was indeed what I was doing, with the ultimate goal being able to use compute shaders.
                 But I stumbled into raymarching instead and some very specific corners of the engine.
                 <br><br>
-                Custom materials and physics shapes, rendered using a postprocessing material that is raymarching.
+                Custom materials and physics shapes rendered using a postprocessing material that is raymarching.
             </p>
         </div>
         <div class="editor-changes">
@@ -95,7 +95,7 @@
                     to do with importing new file file formats. Using new file 
                     factories to parse and store the data in ".uasset"'s.
                     <br><br>
-                    The new files that were being imported are the 2 shader file 
+                    The new files that were being imported are the 2-shader file 
                     types supported by Unreal: ''.ush', ''.usf'. The shader code 
                     is simply being stored as one string. An editor button was also 
                     added to force a reimport of the file.
@@ -165,9 +165,9 @@
                 <h2>Physics</h2>
                 <p>
                     In the end we had our shapes that could be rendered but that is slightly boring.
-                    Also it is hard to play around with and discover bugs etc. in the shaders.
+                    Also, it is hard to play around with and discover bugs etc. in the shaders.
                     <br><br>
-                    Therefore the material was upgraded to a dynamic one, in which we update the 
+                    Therefore, the material was upgraded to a dynamic one, in which we update the 
                     position and rotation of the shapes. The physics of the shapes can be a custom 
                     collider. Although for shapes that are constantly changing thos might be a bit harder. 
                     But for simple geometric shapes like cubes, spheres, capsules and so on the default 
