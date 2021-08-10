@@ -177,6 +177,37 @@
                     adding a sphere or actual light where the raymarched light is could also be handy.
                     On the bottom you can also see a little funny issue encountered along the way, in 
                     which the rotation calculations beiing used had some issue.
+                </p>
+            </div>
+            <div>
+                <iframe width="512" height="288" src="https://youtube.be/embed/kUlFr3IsWhs" title="YouTube video player" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="pictures">
+                    <img id="effects-pic-1" src="../images/RMGIU_gameplay_1.png" alt="RMGIU_gameplay_1">
+                    <img id="effects-pic-2" src="../images/RMGIU_gameplay_4.gif" alt="RMGIU_gameplay_4">
+                </div>
+            </div>
+        </div>
+        <div class="editor-preview">
+            <div>
+                <h2>Editor preview</h2>
+                <p>
+                    An additional feature that I thought was neccesary was the preview mode.
+                    When the mode is enabled it shows the initial positions of the shapes 
+                    and only does so when the game isn't running in editor mode.
+                    <br><br>
+                    This was a bit more annoying to do then first anticipated. Due to the 
+                    rigid nature of how editor settings work on a basic level. While in Unity 
+                    for example adding additional editor functionality is straight forwards, 
+                    here that isn't quite the case. You can still get around this though, by 
+                    using the c++ extending slate code. Slate is the "pure" form of everything 
+                    in the engine, writing something in slate is equivalent to describing the 
+                    UI.
+                    <br><br>
+                    Also since Unreal doesn't really have a method meant for drawing gizmos 
+                    for every tick or any editor tick function. I had to add said functionality 
+                    to one of my classes, using some precompiler statements and inherited 
+                    functions.
                     <br><br>
                     Click here below to take a look at the source code:
                 </p>
@@ -186,13 +217,9 @@
                     </a>
                 </div>
             </div>
-            <div>
-                <iframe width="512" height="288" src="https://youtube.be/embed/kUlFr3IsWhs" title="YouTube video player" frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="pictures">
-                    <img id="effects-pic-1" src="../images/RMGIU_gameplay_1.png" alt="RMGIU_gameplay_1">
-                    <img id="effects-pic-2" src="../images/RMGIU_gameplay_4.gif" alt="RMGIU_gameplay_4">
-                </div>
+            <div class="creation-images">
+                <img id="MS_gameplay_2" src="../images/RMGIU_gameplay_7.png" alt="RMGIU_gameplay_7">
+                <img id="MS_gameplay_3" src="../images/RMGIU_gameplay_8.png" alt="RMGIU_gameplay_8">
             </div>
         </div>
         <div class="results">

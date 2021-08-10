@@ -18,7 +18,7 @@ section
     height: auto;
     position: relative;
     background-size: 100%;
-    padding: 30px 0 30px 0;
+    padding: 30px 0 0px 0;
 }
 
 p
@@ -186,12 +186,12 @@ p
     display: inline-block;
     width: 50%;
     text-align: left;
-    margin: 0px 40px 40px 40px;
+    margin: auto 40px;
     vertical-align: middle;
 }
 .physics iframe
 {
-    margin: 20px 0 0 10px;
+    margin: 0px 0 0 10px;
 }
 .physics .pictures
 {
@@ -204,6 +204,45 @@ p
     flex-wrap: no-wrap;
 }
 .physics .pictures img
+{
+    text-align: left;
+    margin: auto;
+    vertical-align: middle;
+    max-width: 246px;
+    min-height: 246px;
+}
+
+.editor-preview
+{
+    display: flex;
+    flex-wrap: nowrap;
+    width: calc(100% - 80px);
+    margin: 0 40px 40px 40px;
+    height: 550px;
+}
+.editor-preview div
+{
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+    margin: 40px;
+    vertical-align: middle;
+}
+.editor-preview iframe
+{
+    margin: 20px 0 0 10px;
+}
+.editor-preview .pictures
+{
+    display: flex;
+    width: 100%;
+    height: 50%;
+    text-align: left;
+    margin: 0px 40px 0px 0px;
+    vertical-align: middle;
+    flex-wrap: no-wrap;
+}
+.editor-preview .pictures img
 {
     text-align: left;
     margin: auto;
@@ -238,13 +277,14 @@ p
     width: 100%;
     display: block;
     position: relative;
+    margin: 0;
 }
 .main-section .github a
 {
     display: inline-block;
     position: relative;
-    width: 60px;
-    left: 25%;
+    width: 82px;
+    left: calc(50% - 41px);
 }
 .main-section .github a:hover > .main-section .github button
 {
