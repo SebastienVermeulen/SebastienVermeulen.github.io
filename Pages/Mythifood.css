@@ -78,6 +78,23 @@ p
     text-align: center;
     margin: 20px 0;
 }
+.game ul
+{
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.game ul .game-paragraph
+{
+    display: flex;
+    width: 85%;
+}
+.game ul .game-button
+{
+    display: flex;
+    width: 15%;
+}
 .game h2
 {
     display: block;
@@ -99,6 +116,42 @@ p
     width: calc(100% - 80px);
     text-align: left;
     margin: 20px 40px;
+}
+.game ul li .itch
+{
+    width: 100%;
+    display: block;
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    align-self: center;
+}
+.game ul li .itch a
+{
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    margin: auto auto;
+    left: calc(50% - 120px);
+}
+.game .itch a:hover > .game .itch button
+{
+    background-color: rgb(150,150,150);
+    cursor: pointer;
+}
+.game .itch a::selection > .game .itch button
+{
+    background-color: rgb(100,100,100);
+    cursor: pointer;
+}
+.game .itch button
+{
+    background-color: rgb(225,225,225);
+    width: auto;
+    padding: 15px 20px 15px 20px;
+    border-radius: 25px;
+    color: black;
+    border: none;
 }
 
 .info
@@ -282,5 +335,49 @@ p
     text-align: left;
     margin: 20px 0;
     padding-left: 40px;
+}
+
+.main-section .github
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+.main-section .github p
+{
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
+.main-section .github button a
+{
+    display: inline-block;
+    position: relative;
+}
+.main-section .github a:hover > .main-section .github button
+{
+    background-color: rgb(150,150,150);
+    cursor: pointer;
+}
+.main-section .github a::selection > .main-section .github button
+{
+    background-color: rgb(100,100,100);
+    cursor: pointer;
+}
+.main-section .github button
+{
+    background-color: rgb(225,225,225);
+    width: auto;
+    padding: 15px 20px 15px 20px;
+    border-radius: 25px;
+    color: black;
+    border: none;
+    margin: 20px auto 0 auto;
+    display: block;
 }
 /*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
