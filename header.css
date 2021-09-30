@@ -80,6 +80,7 @@ nav .face a img
     width: 80%;
     margin-left: 0px;
     margin-top: 0px;
+    border-radius: 50%;
 }
 nav .face a:hover
 {
