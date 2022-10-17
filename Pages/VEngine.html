@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sebastien Vermeulen</title>
+    <meta property="title" content="Sebastien Vermeulen">
+    <meta property="description" content="VEngine">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sebastienvermeulen.github.io/Pages/VEngine.html">
+    <meta property="og:title" content="Sebastien Vermeulen">
+    <meta property="og:description" content="VEngine">
+    <meta property="og:image" content="https://sebastienvermeulen.github.io/images/VEngine_cover.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sebastienvermeulen.github.io/Pages/VEngine.html">
+    <meta property="twitter:title" content="Sebastien Vermeulen">
+    <meta property="twitter:description" content="VEngine">
+    <meta property="twitter:image" content="https://sebastienvermeulen.github.io/images/VEngine_cover.png">
+
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="VEngine.css">
+    <link rel="stylesheet" href="../footer.css">
+    <meta id="viewport" name="viewport">
+</head>
+<body>
+    <header>
+        <link rel="icon" href="../images/profile.png">
+        <nav>
+            <input type="checkbox" class="toggler">
+            <div class="hamburger"><div></div></div>
+            <div class="menu">
+                <div class="face">
+                    <a href="../about_me.html">
+                        <img src="../images/profile.png?raw=true" alt="profile">
+                    </a>
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="social-link"><a href="https://www.linkedin.com/in/sebastien-vermeulen-ab0900194/">
+                            <img src="../images/linkedin_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="https://github.com/SebastienVermeulen">
+                            <img src="../images/github_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="mailto:Sebastienvermeulen123@gmail.com">
+                            <img src="../images/email_symbol.png?raw=true" alt="email-symbol">
+                        </a></li>
+                    </ul>
+                </div>
+                <div class="links">
+                    <ul>
+                        <a href="../index.html">
+                            <li class="title">
+                                <h1>SEBASTIEN VERMEULEN</h1>
+                                <p>- Junior Programmer working towards Graphics Programmer -</p>
+                            </li>
+                        </a>
+                    </ul>
+                    <ul>
+                        <li class="nav-link"><a href="../index.html">Work</a></li>
+                        <li class="nav-link"><a href="../smaller_works.html">Smaller works</a></li>
+                        <li class="nav-link"><a href="../Resume.html">Resume</a></li>
+                        <li class="nav-link"><a href="../about_me.html">About me</a></li>
+                        <li class="nav-link"><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="main-section">
+        <div class="title">
+            <h1>VEngine</h1>
+            <p>DirectX11 framework, forwards and deferred</p>
+        </div>
+        <div class="discription">
+            <img src="../images/VEngine_cover.png" alt="VEngine_cover">
+            <p>
+                This framework is a static library and project.
+                Capable of rendering PBR materials in both forwards
+                and deferred models.
+                <br><br>
+                It uses Directx11 for the rendering (with effects11), 
+                fbxsdk to read meshes and DDStexture loader for 
+                simple textures.
+                <br><br>
+                You as the user can adjust settings and play around
+                with the scene using the simple but effective ImGUI
+                UI. Which updates everything in realtime.
+            </p>
+        </div>
+        <div class="framework">
+            <div>
+                <h2>Framework</h2>
+                <p>
+                    A renderer with not much baggage, able to adjust things on the fly. That was what I wanted to make.
+                    And well, although the "engine" isn't quite there yet. I did make strides towards what I wanted to achieve.
+                    It is light weight and should be able to run (albeit with limited testing) on all DirectX11 capable
+                    devices. Without having to install packages or the likes.
+                    <br><br>
+                    My intention is to expand upon what is here already in the future. Adding graphics features as I go along.
+                    And providing myself with needed engine functionality when the need for it arises. which has been the modus
+                    operandi so far at least, with an attempt to have at least some foresight of what I will need.
+                </p>
+            </div>
+        </div>
+        <div class="features">
+            <div>
+                <h2>Features</h2>
+                <p>
+                    The features provided can be split in 2 categories: graphics related and engine related. 
+                    Hence, I will list them as such.
+                </p>
+                <div>
+                    <p class="feature-titles">Graphics Features:</p>
+                    <div class="feature-box">
+                        <ul class="feature-list-graphics">
+                            <li>
+                                <p>Deferred rendering 2 passes</p>
+                            </li>
+                            <li>
+                                <p>Forwards rendering</p>
+                            </li>
+                            <li>
+                                <p>Directional & point lights</p>
+                            </li>
+                            <li>
+                                <p>Meshes</p>
+                            </li>
+                            <li>
+                                <p>Camera</p>
+                            </li>
+                            <li>
+                                <p>PBR shading model, with BRDF</p>
+                            </li>
+                        </ul>
+                        <ul class="feature-list-description">
+                            <li>
+                                <p>Collecting scene data and then a lighting pass</p>
+                            </li>
+                            <li>
+                                <p>Lighting gets rendered alongside the scene</p>
+                            </li>
+                            <li>
+                                <p>With color and intensity</p>
+                            </li>
+                            <li>
+                                <p>Having vertex color, normals, tangents, binormals, uvs</p>
+                            </li>
+                            <li>
+                                <p>With adjustable FOV, near and far plane</p>
+                            </li>
+                            <li>
+                                <p>TrowbridgeReitz, Fresnel, Schlick</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="images">
+                        <img src="../images/VEngine_gameplay_1.gif?raw=true" alt="gameplay-1">
+                        <img src="../images/VEngine_gameplay_2.gif?raw=true" alt="gameplay-2">
+                        <img src="../images/VEngine_gameplay_3.gif?raw=true" alt="gameplay-3">
+                    </div>
+                </div>
+                <p>
+                    A note related to the shaders:
+                    <br></br>
+                    Both forwards and deferred at this point will have the same resulting image. 
+                    When implementing new graphics techniques, they would both have their own 
+                    unique implementations. Making it difficult to upkeep the same exact look, 
+                    volumetric lighting to give an example. Hence why I probably won't try and 
+                    upkeep both sides, rather implementing new techniques in the pipeline that 
+                    suits the technique best.
+                    <br></br>
+                    Another small quirk of the implementation is the "limited" number of lights. 
+                    The shaders have a variable defined that limits the number of lights that can 
+                    be stored in the shaders. This is a temporary structure though as it is quite 
+                    limiting. And can be avoided by splitting the lighting functions up, plus 
+                    having multiple calls for lights.
+                </p>
+                <div>
+                    <p class="feature-titles">Engine Features:</p>
+                    <div class="feature-box">
+                        <ul class="feature-list-graphics">
+                            <li>
+                                <p>FBX mesh loader</p>
+                            </li>
+                            <li>
+                                <p>DDS texture loader</p>
+                            </li>
+                            <li>
+                                <p>ImGUI UI</p>
+                            </li>
+                            <li>
+                                <p>Component and object parenting system</p>
+                            </li>
+                            <li>
+                                <p>(Unfinished) Asset system</p>
+                            </li>
+                            <li>
+                                <p>Materials</p>
+                            </li>
+                            <li>
+                                <p>Window features</p>
+                            </li>
+                        </ul>
+                        <ul class="feature-list-description">
+                            <li>
+                                <p>Using the fbxsdk from autodesk</p>
+                            </li>
+                            <li>
+                                <p>Using the DDSTextureLoader</p>
+                            </li>
+                            <li>
+                                <p>To adjust settings in the scene</p>
+                            </li>
+                            <li>
+                                <p>Allows for reusability</p>
+                            </li>
+                            <li>
+                                <p>To improve loading times and make data easer to use</p>
+                            </li>
+                            <li>
+                                <p>Makes it possible to hook up shaders more easily</p>
+                            </li>
+                            <li>
+                                <p>Like: fullscreen/windowed, VSync</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="images-engine">
+                        <img src="../images/VEngine_gameplay_4.png?raw=true" alt="gameplay-4">
+                        <img src="../images/VEngine_gameplay_6.png?raw=true" alt="gameplay-6">
+                        <img src="../images/VEngine_gameplay_5.png?raw=true" alt="gameplay-5">
+                    </div>
+                </div>
+                <p>
+                    A note related to the assets:
+                    <br></br>
+                    The asset system can lead assets, but it would still need to make 
+                    asset files. Which would have the fully parsed data inside. That way next 
+                    time an asset needs to get loaded it can reference an ID, reference the 
+                    number, locate the parsed file, and finally more quickly read the data. 
+                    Now this does not mean that for smaller files this wouldn't give 
+                    diminishing  returns, but personally I am fine with that. As loading times 
+                    for those are negligible anyhow. And one would rather speed up the 
+                    slower files.
+                    <br></br>
+                    Right now the groundwork is laid, asset factories create assets. These 
+                    factories make it easy for me to handle data before it gets used. And 
+                    assets as a concept make it easy to assign this data to components, let's 
+                    say for a mesh renderer. A mesh asset fits perfectly, etc.
+                </p>
+                <p class="github">
+                    Take a look at some of the code <a href="https://github.com/SebastienVermeulen/VEngine" target="_blank">here</a>, 
+                    on my Github.    
+                </p>
+            </div>
+        </div>
+    </section>
+        
+    <section class="footer">
+        <footer>
+            <p><strong>Sebastien Vermeulen</strong> - Tel.:+32(0)49/424.17.86 - E-mail: Sebastienvermeulen123@gmail.com</p>
+        </footer>
+    </section>
+</body>
+</html>

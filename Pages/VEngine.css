@@ -1,0 +1,220 @@
+/*SECTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+section
+{
+    background: rgb(30,30,30);
+    position: relative;
+    width: 1200px;
+    min-width: 620px;
+    margin: 0px;
+}
+
+.main-section
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    position: relative;
+    background-size: 100%;
+    padding: 30px 0 30px 0;
+}
+
+p
+{
+    color: #a9a9a9;
+}
+
+.title
+{
+    display: block;
+    width: 100%;
+}
+.title h1
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+.title p
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+
+.discription
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+}
+.discription img
+{
+    vertical-align: middle;
+    width: 480px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 40px;
+}
+.discription p
+{
+    width: 35%;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.8;
+    margin: 0 40px;
+}
+
+.framework
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+}
+.framework h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 0px;
+    padding-left: 40px;
+}
+.framework p
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin: 20px 40px;
+}
+
+.features
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+}
+.features h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 0;
+    padding-left: 40px;
+}
+.features p
+{
+    display: block;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin: 20px 40px;
+}
+.feature-titles
+{
+    font-weight: bold;
+    color: white;
+    text-align: left;
+}
+.feature-box
+{
+    display: flex;
+    flex: 100%;
+    vertical-align: top;
+    width: 100%;
+}
+.feature-list-graphics
+{
+    left: 0px;
+    width: 25%;
+    margin: 10px 0 0 40px;
+    text-align: left;
+    color: #a9a9a9;
+}
+.feature-list-graphics li
+{
+    margin-left: 10px;
+}
+.feature-list-graphics li p
+{
+    margin: 0 0 3px 0;
+    width: auto;
+}
+.feature-list-description
+{
+    right: 0px;
+    width: 50%;
+    margin: 10px 0 0 40px;
+    text-align: left;
+    color: #a9a9a9;
+    list-style-type: none;
+    padding: 0;
+}
+.feature-list-description li
+{
+    margin-left: 10px;
+}
+.feature-list-description li p
+{
+    margin: 0 0 3px 0;
+    width: auto;
+}
+
+.features .images
+{
+    display: inline-block;
+    flex-wrap: nowrap;
+    width: 90%;
+    margin: 10px auto 0 auto;
+}
+.features .images img
+{
+    display: inline-block;
+    text-align: left;
+    margin: 5px 5px 0 5px;
+    width: 48%;
+}
+.features .images-engine
+{
+    display: inline-block;
+    flex-wrap: nowrap;
+    width: 90%;
+    margin: 10px auto 0 auto;
+}
+.features .images-engine img
+{
+    display: inline-block;
+    text-align: left;
+    margin: 5px 5px 0 5px;
+    width: 32%;
+    vertical-align: top;
+}
+
+.features .github
+{
+    text-align: center;
+}
+
+.ymal
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0px 0;
+}
+.ymal h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 40px;
+}
+/*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
