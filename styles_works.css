@@ -37,7 +37,7 @@ section
 .published-section
 {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(1, 1fr);
     grid-column-gap: 15px;
     grid-row-gap: 50px;
@@ -155,6 +155,18 @@ section
 {
     display: inline-block;
     width: 100%;
+}
+#SWBImage-container
+{
+    width: 100%;
+    height: 100%;
+
+}
+#SWBImage
+{
+    width: 100%;
+    height: 444px;
+    object-fit: cover;
 }
 .main-section div a ul li p
 {
