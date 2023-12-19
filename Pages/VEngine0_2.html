@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sebastien Vermeulen</title>
+    <meta property="title" content="Sebastien Vermeulen">
+    <meta property="description" content="VEngine0.2">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sebastienvermeulen.github.io/Pages/VEngine0_2.html">
+    <meta property="og:title" content="Sebastien Vermeulen">
+    <meta property="og:description" content="VEngine0.2">
+    <meta property="og:image" content="https://sebastienvermeulen.github.io/images/VEngine_cover.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sebastienvermeulen.github.io/Pages/VEngine0_2.html">
+    <meta property="twitter:title" content="Sebastien Vermeulen">
+    <meta property="twitter:description" content="VEngine0.2">
+    <meta property="twitter:image" content="https://sebastienvermeulen.github.io/images/VEngine_cover.png">
+
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="VEngine0_2.css">
+    <link rel="stylesheet" href="../footer.css">
+    <meta id="viewport" name="viewport">
+</head>
+<body>
+    <header>
+        <link rel="icon" href="../images/profile.png">
+        <nav>
+            <input type="checkbox" class="toggler">
+            <div class="hamburger"><div></div></div>
+            <div class="menu">
+                <div class="icon">
+                    <img src="../images/Icoon.png?raw=true" alt="icon">
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="social-link"><a href="https://www.linkedin.com/in/sebastien-vermeulen-ab0900194/">
+                            <img src="../images/linkedin_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="https://github.com/SebastienVermeulen">
+                            <img src="../images/github_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="mailto:Sebastienvermeulen123@gmail.com">
+                            <img src="../images/email_symbol.png?raw=true" alt="email-symbol">
+                        </a></li>
+                    </ul>
+                </div>
+                <div class="links">
+                    <ul>
+                        <a href="../index.html">
+                            <li class="title">
+                                <h1>SEBASTIEN VERMEULEN</h1>
+                                <p>- Graphics Programmer -</p>
+                            </li>
+                        </a>
+                    </ul>
+                    <ul>
+                        <li class="nav-link"><a href="../index.html">Work</a></li>
+                        <li class="nav-link"><a href="../Resume.html">Resume</a></li>
+                        <li class="nav-link"><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="main-section">
+        <div class="title">
+            <h1>VEngine 0.2</h1>
+            <p>General improvements of the code base and extension of features</p>
+        </div>
+        <div class="discription">
+            <img src="../images/VEngine0-2_cover.png" alt="VEngine_cover">
+            <p>
+                This framework is a static library and project.
+                Capable of rendering PBR materials in both forwards
+                and deferred models.
+                <br><br>
+                It uses Directx11 for the rendering (with effects11), 
+                a custom made obj parser to read meshes and a DDStexture
+                loader for simple textures.
+                <br><br>
+                You as the user can adjust settings and play around
+                with the scene using the simple but effective ImGUI
+                UI. Which updates everything in realtime.
+            </p>
+        </div>
+        <div class="framework">
+            <div>
+                <h2>Framework</h2>
+                <p>
+                    In the previous version page of this framework I talked about how I wanted to expand upon its capabilities.
+                    And I think I achieved a large part of that, by focussing on some core problems in the piping of the renderers
+                    as well as how data gets handled. While constantly keeping in mind if I am making the API easier or more difficult
+                    to use. Which I think is the most difficult part in this since you can easily make loads of features. But then
+                    later down the line you would end up realising that you can no longer move forwards with what you have done,
+                    forcing you to refactor.
+                    <br><br>
+                    I think now the "engine" is in a decent spot, that allows me to move forwards with more user interaction.
+                    Things like input for keyboard, mouse, perhaps even gamepads? Or adding object selections, gismos for editing
+                    the world. More graphical features in postprocessing, volumetrics, skeletals, etc.
+                </p>
+            </div>
+        </div>
+        <div class="features">
+            <div>
+                <h2>Features</h2>
+                <p>
+                    I have added some new features besides solidifying the backend.
+                </p>
+                <div>
+                    <p class="feature-titles">New features:</p>
+                    <div class="feature-box">
+                        <div>
+                            <ul class="feature-list">
+                                <li>
+                                    <p>Logging system</p>
+                                </li>
+                                <li>
+                                    <p>Postprocess pipeline</p>
+                                </li>
+                                <li>
+                                    <p>Full screen copy pass</p>
+                                </li>
+                                <li>
+                                    <p>Greyscale postprocess</p>
+                                </li>
+                                <li>
+                                    <p>Graphics debug annotations</p>
+                                </li>
+                                <li>
+                                    <p>Shader environmental pragmas</p>
+                                </li>
+                                <li>
+                                    <p>Per Object metal/rougness</p>
+                                </li>
+                            </ul>
+                            <div class="images-perpoly">
+                                <img src="../images/VEngine0-2_gameplay_3.png?raw=true" alt="normalscombinedvsperpoly" class="renderdoc">
+                            </div>
+                        </div>
+                        <p class="notes">
+                            A note related to the new features:
+                            <br></br>
+                            Postprocessing is one of the most powerful and important steps in any
+                            graphics pipeline as such I have added it in an expandable as possible form.
+                            Besides the structure I also made a full screen copy shader, this will facilitate
+                            the addition of techniques that require either require duplicates for temporal 
+                            use or otherwise. To start however, I made a simple greyscale to test
+                            functionality of the systems.
+                            <br></br>
+                            With all the new complexity being added to the pipeline I made it a priority to
+                            have more visibility on what is happening in the framework. For that one of the
+                            simplest and most effective things to do is adding a logger. Besides that I also
+                            added render annotations, this way debugging via Renderdoc or Nvidea Insights
+                            will become much easier.
+                            <br></br>
+                            Also with my expansion of mesh functionality the generation of normals and 
+                            acceptance of uv-less geometry I had to think of expanding material capabilities.
+                            My "ubershader" can now handle per object metalness, roughness and albedo.
+                            All of this is allowed possible due to environmental pragmas which can be added
+                            before initialization and hence get compiled on the fly. Which FOR NOW avoids the
+                            tricky question: permutation explosions.
+                        </p>
+                    </div>
+                </div>
+                <div class="images-new-features">
+                    <img src="../images/VEngine0-2_gameplay_1.png?raw=true" alt="logger" class="renderdoc">
+                    <img src="../images/VEngine0-2_gameplay_2.png?raw=true" alt="renderdoc" class="logging">
+                </div>
+                <div><p class="feature-titles">Improvements:</p>
+                    <div class="feature-box">
+                        <ul class="feature-list">
+                            <li>
+                                <p>Material parameter lists</p>
+                            </li>
+                            <li>
+                                <p>Base class for renderers</p>
+                            </li>
+                            <li>
+                                <p>Structure for rendertargets</p>
+                            </li>
+                            <li>
+                                <p>Targets are now reusable</p>
+                            </li>
+                            <li>
+                                <p>Added engine rendersettings</p>
+                            </li>
+                            <li>
+                                <p>Common shaderfile</p>
+                            </li>
+                            <li>
+                                <p>Normal generation/combination</p>
+                            </li>
+                        </ul>
+                        <p class="notes">
+                            A note related to the engine improvements:
+                            <br></br>
+                            Some of the most troublesome things I found I had to deal with is the reusability of rendertargets.
+                            Since in the past for each case a target was required a new one was made, which of course means a
+                            lot of wasted memory. So to avoid this I made it a point to make them deallocate when not used in 
+                            a frame or 2. But before that happens they are open for reuse, so that a technique might request
+                            targets with certain and most likely similar description and therefore allow for reuse.
+                            <br></br>
+                            Tying into this; the use of materials to do most of the boilerplate related to setting up shaders
+                            and so forth was a bit problematic. It was doing a lot of things and had lots of 'if'-statements to
+                            handle the off chance that instead of a texture we might be dealing with a rendertarget. The 
+                            solution was making a targets and texture inherit from a similar base class. And making it so that
+                            they can simply be referenced through parameter lists. Which also prevents loads of hardcoding.
+                            <br></br>
+                            Additionally there were a few parameters that had duplicates. So I thought it better to centralize
+                            these for easier future use. And due to all these changes it has become a lot easier to spawn many
+                            meshes with a diverse amount of material settings.
+                        </p>
+                    </div>
+                    <div class="images-materialparams">
+                        <img src="../images/VEngine0-2_gameplay_4.png?raw=true" alt="materialparamscombined" class="renderdoc">
+                        <img src="../images/VEngine0-2_gameplay_5.png?raw=true" alt="materialparamsperpoly" class="renderdoc">
+                    </div>
+                </div>
+                <p class="github">
+                    Take a look at some of the code <a href="https://github.com/SebastienVermeulen/VEngine" target="_blank">here</a>, 
+                    on my Github.    
+                </p>
+            </div>
+        </div>
+    </section>
+        
+    <section class="footer">
+        <footer>
+            <p><strong>Sebastien Vermeulen</strong> - Tel.:+32(0)49/424.17.86 - E-mail: Sebastienvermeulen123@gmail.com</p>
+        </footer>
+    </section>
+</body>
+</html>

@@ -11,6 +11,7 @@ section
 
 .title-section
 {
+    transition-duration: 0.5s;
     background: rgb(10, 10, 10);
 
     display: block;
@@ -33,6 +34,106 @@ section
     height: 50px;
     display: contents;
 }
+.title-section:hover
+{
+    background-color: black;
+}
+
+/* Title BEGIN */
+
+.about-section
+{
+    display: block;
+
+    margin-left: auto;
+    margin-right: auto;
+    height: 600px;
+    position: relative;
+    background-size: 100%;
+}
+
+.face
+{
+    height: 600px;
+    width: 50%;
+    display: inline-block;
+    top: 0;
+
+    background: linear-gradient(to left, rgba(30,30,30,1) 0%, rgba(30,30,30,0.8) 5%, rgba(30,30,30,0) 80%, rgba(30,30,30,0) 90%, rgba(30,30,30,0) 90%, rgba(30,30,30,0) 100%), url("images/profile_2.png");
+    background-size: cover;
+}
+
+.about-section .get-to-know
+{
+    float: inline-end;
+    width: 40%;
+    height: auto;
+    margin: 92px 4.5% 0 5%;
+}
+.about-section ul
+{
+    height: 100%;
+    display: inline-block;
+    background-color: rgba(45,45,45,1);
+    margin: 0;
+    padding: 0;
+}
+.about-section ul li
+{
+    display: block;
+}
+.about-section ul li h2
+{
+    margin: 0;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 30px;
+    background-color: rgb(10, 10, 10);
+    transition: 0.5s;
+}
+.about-section ul li h2:hover
+{
+    background-color: black;
+}
+.about-section ul li p
+{
+    text-align: justify;
+    color: rgb(220, 220, 220);
+    font-weight: bold;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.about-section a
+{
+    display: block;
+    width: 200px;
+    align-self: center;
+    margin: 0 auto;
+}
+.about-section a:hover > .contact-button
+{
+    background-color: rgb(255,255,255);
+    cursor: pointer;
+}
+.about-section a::selection > .contact-button
+{
+    background-color: rgb(100,100,100);
+    cursor: pointer;
+}
+.contact-button
+{
+    background-color: rgb(225,225,225);
+    width: 100%;
+    margin: 0 0 10px 0;
+    padding: 15px 20px 15px 20px;
+    border-radius: 25px;
+    color: black;
+    border: none;
+    font-size: 20px;
+}
+
+/* Second row BEGIN */
 
 #SecondRow
 {
