@@ -28,8 +28,8 @@ a
 header
 {
     display: block;
-    background: black;
-    height: 100px;
+    background: #1279B0;
+    height: 120px;
     padding: 10px;
     text-align: center;
     margin: 0px;
@@ -74,7 +74,7 @@ nav .links .nav-link a
 nav .links ul a li p
 {
     text-transform: none;
-    color: rgb(200,200,200);
+    color: white;
     font-size: 18;
 }
 nav .menu div ul
@@ -165,28 +165,24 @@ nav li
 nav .title
 {
     display: inline-block;
+    width: 500px;
     position: relative;
     text-align: center;
     z-index: 1;
     opacity: 1;
-    margin: 0 0 20px 0;
+    margin: 0px 0px 20px 0px;
 }
 nav .title h1
 {
-    transition: font-size 0.5s linear;
-
-    height: 26px;
+    height: 40px;
+    font-size: 40px;
     text-align: center;
     margin: 0px 0px 5px 0px;
     padding: 0px;
 }
-nav .title h1:hover
-{
-    font-size: 26px;
-
-}
 nav .title p
 {
+    font-size: 20px;
     margin: 0px;
     padding: 0px;
 }
@@ -200,7 +196,7 @@ nav .icon
 }
 nav .icon img
 {
-    width: 100px;
+    width: 120px;
     vertical-align: middle;
     padding: 0px;
     margin: 0px 5px;
