@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sebastien Vermeulen</title>
+    <meta property="title" content="Sebastien Vermeulen">
+    <meta property="description" content="The Dark Pictures: The Devil in Me">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sebastienvermeulen.github.io/Games/TDIM.html">
+    <meta property="og:title" content="Sebastien Vermeulen">
+    <meta property="og:description" content="The Dark Pictures: The Devil in Me">
+    <meta property="og:image" content="https://sebastienvermeulen.github.io/images/TheDevilInMe_Cover.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sebastienvermeulen.github.io/Games/TDIM.html">
+    <meta property="twitter:title" content="Sebastien Vermeulen">
+    <meta property="twitter:description" content="The Dark Pictures: The Devil in Me">
+    <meta property="twitter:image" content="https://sebastienvermeulen.github.io/images/TheDevilInMe_Cover.png">
+
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="TDIM.css">
+    <link rel="stylesheet" href="../footer.css">
+    <meta id="viewport" name="viewport">
+</head>
+<body>
+    <header>
+        <link rel="icon" href="../images/profile.png">
+        <nav>
+            <input type="checkbox" class="toggler">
+            <div class="hamburger"><div></div></div>
+            <div class="menu">
+                <div class="icon">
+                    <img src="../images/Icoon.png?raw=true" alt="icon">
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="social-link"><a href="https://www.linkedin.com/in/sebastien-vermeulen-ab0900194/">
+                            <img src="../images/linkedin_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="https://github.com/SebastienVermeulen">
+                            <img src="../images/github_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="mailto:Sebastienvermeulen123@gmail.com">
+                            <img src="../images/email_symbol.png?raw=true" alt="email-symbol">
+                        </a></li>
+                    </ul>
+                </div>
+                <div class="links">
+                    <ul>
+                        <a href="../index.html">
+                            <li class="title">
+                                <h1>SEBASTIEN VERMEULEN</h1>
+                                <p>- Graphics Programmer -</p>
+                            </li>
+                        </a>
+                    </ul>
+                    <ul>
+                        <li class="nav-link"><a href="../index.html">Work</a></li>
+                        <li class="nav-link"><a href="../Resume.html">Resume</a></li>
+                        <li class="nav-link"><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="main-section">
+        <div class="title">
+            <h1>The Dark Pictures: The Devil in Me</h1>
+            <p>Fourth entree into the Dark Pictures series about the serial killer H.H.Holmes.</p>
+        </div>
+        <div class="discription">
+            <a href="https://en.bandainamcoent.eu/the-dark-pictures/the-dark-pictures-the-devil-in-me" target="_blank">
+                <img src="../images/TheDevilInMe_Cover.png" alt="SF-gameplay-1">
+            </a>
+            <p>
+                A series of stand-alone branching cinematic horror games from the studio behind Until Dawn. Easy to pick-up and play in short sessions, alone or with friends. The Devil in Me is the fourth game in the series and the Season One finale.   
+                <br><br>
+                A group of documentary film makers receive a mysterious call inviting them to a modern-day replica of serial killer H.H. Holmes’ ‘Murder Castle’. It’s an opportunity that’s too good to pass up and could be just the thing they’re looking for to win some much-needed public interest.
+                <br><br>
+                The hotel is the perfect set for their new episode, but things aren’t quite as they seem. The crew discover they’re being watched and even manipulated, and suddenly there’s much more at stake than just their ratings!
+            </p>
+        </div>
+        <div class="game">
+            <div>
+                <h2>Contributions</h2>
+                <p>
+                    For this game I had to research the theory behind HDR as Unreal Engine 4 had an incorrect colorspace transformation for its HDR output. This problem was present in multiple different places: mathematically the conversion from SDR to HDR was using an incorrect conversion (not following the Dolby standards), the UI was incorrectly masked into this space as well, and parameters weren’t correctly queried from the user’s screen (although Microsoft is partially to blame since the OS, Windows 10, does not discriminate against irrelevant screens in a multimonitor setup). The problem was not fully resolved, as many other issues were tied into it, which have ever since Unreal Engine 5 been resolved by Epic. Regardless the work done at the time provided a stopgap for the project to latch onto.
+                    <br><br>
+                    The project was not very thrifty with its memory, both overall and for its pools (textures). We had popping and crashes due to this, it was paramount to resolve the issue. Which was done so relatively effectively by avoiding the use of 4K textures as well as keeping the use of additional render targets to a minimum.
+                    <br><br>
+                    A lot of the work I did for performance gains was related to profiling and providing correct and useful information to the parties involved. However, at times I also adjusted values to be better in line with the scene’s demands.
+                </p>
+            </div>
+            <div class="video">
+                <iframe src="https://www.youtube.com/embed/Nn5dK65VugY" title="YouTube video player" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                 allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+        
+    <section class="footer">
+        <footer>
+            <p><strong>Sebastien Vermeulen</strong> - Tel.:+32(0)49/424.17.86 - E-mail: Sebastienvermeulen123@gmail.com</p>
+        </footer>
+    </section>
+</body>
+</html>
