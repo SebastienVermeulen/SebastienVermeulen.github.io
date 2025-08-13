@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sebastien Vermeulen</title>
+    <meta property="title" content="Sebastien Vermeulen">
+    <meta property="description" content="SpaceControl">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sebastienvermeulen.github.io/Pages/SpaceControl.html">
+    <meta property="og:title" content="Sebastien Vermeulen">
+    <meta property="og:description" content="SpaceControl">
+    <meta property="og:image" content="https://sebastienvermeulen.github.io/images/SC_Cover.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sebastienvermeulen.github.io/Pages/SpaceControl.html">
+    <meta property="twitter:title" content="Sebastien Vermeulen">
+    <meta property="twitter:description" content="SpaceControl">
+    <meta property="twitter:image" content="https://sebastienvermeulen.github.io/images/SC_Cover.png">
+
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="LEGO Horizon Adventures.css">
+    <link rel="stylesheet" href="../footer.css">
+    <meta id="viewport" name="viewport">
+</head>
+<body>
+    <header>
+        <link rel="icon" href="../images/profile.png">
+        <nav>
+            <input type="checkbox" class="toggler">
+            <div class="hamburger"><div></div></div>
+            <div class="menu">
+                <div class="icon">
+                    <img src="../images/Icoon.png?raw=true" alt="icon">
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="social-link"><a href="https://www.linkedin.com/in/sebastien-vermeulen-ab0900194/">
+                            <img src="../images/linkedin_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="https://github.com/SebastienVermeulen">
+                            <img src="../images/github_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="mailto:Sebastienvermeulen123@gmail.com">
+                            <img src="../images/email_symbol.png?raw=true" alt="email-symbol">
+                        </a></li>
+                    </ul>
+                </div>
+                <div class="links">
+                    <ul>
+                        <a href="../index.html">
+                            <li class="title">
+                                <h1>SEBASTIEN VERMEULEN</h1>
+                                <p>- Graphics Programmer -</p>
+                            </li>
+                        </a>
+                    </ul>
+                    <ul>
+                        <li class="nav-link"><a href="../index.html">Work</a></li>
+                        <li class="nav-link"><a href="../Resume.html">Resume</a></li>
+                        <li class="nav-link"><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="main-section">
+        <div class="title">
+            <h1>LEGO Horizon Adventures</h1>
+            <p>Fully realised brickbased world, with an action adventure co-op gameplay.</p>
+        </div>
+        <div class="discription">
+            <a href="https://www.studiogobo.com/we-create/sg_ourgames_sony_legohorizonadventures/" target="_blank">
+            <img src="../images/LHA_cover.jpg" alt="SF-gameplay-1">
+            </a>
+            <p>
+                Journey to a distant future, where the land is made of LEGO bricks and lush nature has reclaimed the Earth. Meet the Nora tribe who live in the settlement of Mother’s Heart, and catch your first glimpse of the incredible dinosaur-like machines that roam the forests, mountains, and deserts that stretch beyond the village walls...
+                <br><br>
+                Join hunter Aloy as she battles to save Earth from an ancient digital demon, and a gang of sunworshippers who want to live in a world without shade so they can soak up the rays while everything burns.
+                <br><br>
+                Hunt machines on your own as Aloy, or unlock colourful heroes Varl, Teersa, and Erend, and use their unique skills to defeat enemies and overcome challenges. Share the fun with another player online**, or via innovative couch co-op on a single screen, so you’re always in the same world together.
+                <br><br>
+                Give the village of Mother’s Heart a unique makeover, decorating it in delightful ways to unlock unique LEGO buildings and ornaments. You can even dish out hilarious outfits for your friends to wear!
+                <br><br>
+                Uncover secrets from Aloy’s mysterious past as you explore stunning LEGO locations inspired by the world of Horizon, including thriving forests and soaring mountains. Delve deep into the underground Cauldrons or climb the iconic Tallnecks – all beautifully recreated in LEGO bricks.
+                <br><br>
+                Need an extra challenge? Replay levels that change to test your skills and unlock new surprises, or check the Mother's Heart Community Board for ways to help the village. See if you've got what it takes to ace every aspect of the game!
+            </p>
+        </div>
+        <div class="game">
+            <div class="contribution">
+                <h2>The Making of</h2>
+                <p>
+                    Having joined Studio GOBO I was immediately put to work. 
+                    The LEGO title is in my opinion, a great piece of engineering work.
+                    Knowing the hoops it had to pass through to release on Switch, PS4, PS5, and PC on the same day!
+                    Varying from automatic mesh conversion pipelines, to lighting complexity reduction automation.
+                    But let me detail in specific what I spent my time on, from when I joined in the final months up until release.
+                </p>
+                <div>
+                    <div class="contribution-short-1">
+                        <h3>In short my contributions are as follows:</h3>
+                        <ul>
+	                        <li>General Optimizations, data & content</li>
+	                        <li>CustomDepth occlusion checks</li>
+	                        <li>Performance Macro's</li>
+	                        <li>LOD scaling for DOF</li>
+	                        <li>Nanite loading adjustments</li>
+	                        <li>PSO investigations</li>
+	                        <li class="sublist"><ul>
+                                Multiple Engine integrations:
+	                            <li>VSM Page invalidations</li>
+                                <li>Volumetric fog reprojection</li>
+                                <li>ParticleSubUV material expression</li>
+                            </ul></li>
+	                        <li>SSS Burley sample optimizations
+	                        <li class="sublist"><ul>
+                                Material & shader debugging to resolve visual issues:
+	                            <li>Specific GPU driver bug due to atomic additions<br>
+                                    on the RX7900XTX for example</li>
+	                            <li>Materials being incorrectly shaded on XSX</li>
+                            </ul></li>
+	                        <li>Mipmap selection FOV code fixes</li>
+	                        <li>Smaller fixes related to networking and Parametercollection & others</li>
+	                        <li>Debugging viewmodes	Switch Light complexity</li>
+                        </ul>
+                    </div>
+                    <div class="video">
+                        <iframe src="https://www.youtube.com/embed/L3_6wPzCPBw?si=4D6axSaprSp27nXo" title="YouTube video player" frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen><img src="../images/LHA_cover.jpg" alt="SF-gameplay-1"></iframe>
+                    </div>
+                </div>
+                <div class="contribution-detail">
+                    <p>
+                        <br><br>
+                        Detailing all of this is just not worth it. Since I can't give code nor images due to contractual agreements.
+                        So instead I have picked out a few of the above myself that I particularly liked. Which I'll try to explain 
+                        to the best of my abilities.
+                        <br><br>
+                    </p>
+                    <div>
+                        <h3>Material & shader debugging:</h3>
+                        <p>
+                            At a certain point in development we had some issues regarding the Lumen scene.
+                            It was a bit isolated but basically in the nighttime scenes for the game very bright fireflies could appear.
+                            Worse yet if the player moved and thus moved the camera then they could spread uncontrollably!
+                            This of course is less than ideal, so I was placed on the case to determine the source.
+                            We asked Epic if this had happened to them before, since we knew with certainty that 
+                            it was due to Lumen. But this came up empty.
+                            <br><br>
+                            Thus we had to dig into it ourselves first. This was done using the helpful tool called Renderdoc.
+                            Which provides a step by step reading of a captured frame. With all the buffers and targets exposed.
+                            Via this it confirmed our suspicions, the origin of the issue was the Lumen probes.
+                            They were in fact filled with NaN's.
+                            <br><br>
+                            How do you determine the cause though? Well, the probes are stored in a rendertarget, handy. This means that we can trace
+                            the pixel's their value's back to the pass of origin via Renderdoc. So, step by step:
+                            for each affected pass I looked in the output to confirm if there was corruption, then checking in the shadercode
+                            where this originates from. Often it gets passed with minor alterations from samples taken from our input targets.
+                            At which point the process repeats for the pixels in those targets. Checking the code is of import thought, 
+                            since some targets are persistent across frames if you aren't careful you end up in a dead end or a loop.
+                            <br><br>
+                            In the end I kept repeating the process until the values came from a buffer. Which is originally filled using 
+                            functions like InterlockedAdd. Confirming the validity of the code on other platforms proved that
+                            in the end it was a driver issue. Which was circumventable by reordering the code.
+                        </p>
+                    </div>
+                    <div>
+                        <h3>CustomDepth occlusion checks:</h3>
+                        <p>
+                            Our camera is only indirectly controlled by the player and is placed at a somewhat isometric angle.
+                            In practice this means that the player can sometimes be partially or even completely hidden from the user's eyes.
+                            How to resolve this? Custom depth! We can render the player's geometry and other characters as well for that matter
+                            into a separate target. Which in postprocesses can be integrated into the final images. This is however a well-known technique.
+                            <br><br>
+                            In our case we didn't want it to be omnipresent, for aesthetic reason. since it is quite distracting if it appears 
+                            even when only a small part of the character is covered (it would of course only shade those pixels). No, we wanted 
+                            that if a certain percentage of our character got covered that only then it would activate.
+                            <br><br>
+                            We used occlusion queries which gives us an idea of the number of pixels that would potentially get rendered.
+                            This isn't directly comparable against the actual amount shaded. Since for occlusion queries the engine smartly uses 
+                            bounding boxes. To not make it too difficult on ourselves we applied a constant product to account for this difference. 
+                            Which gets scaled based on the bounding box's axis' lengths that are least aligned with the view. IE when looking from the top
+                            we assume the X/Y axes are determinant on the rough surface area that will get covered. Or when a cube the constant is not
+                            scaled.
+                        </p>
+                    </div>
+                    <div>
+                        <h3>Nanite loading adjustments:</h3>
+                        <p>
+                            Nanite has the tricky issue that in return for highly detailed micro-geometry we can't hold all that data simultaneously
+                            in VRAM. So the engine has to cache the pages it needs, which can take some time as they must be fetched from "disk".
+                            This can be mitigated by increasing the minimum residency, set by default to 32kb. This scales how much mesh data HAS
+                            to be loaded in before Nanite tries to rendering the geometry.
+                            <br><br>
+                            This issue of course isn't very common. Rather it mainly appears when you have 1 very large mesh or you have a highly detailed scene.
+                            And then in particular, when you teleport the camera, or when a level is loaded/geometry is revealed. At which point you will have
+                            what can only be described as traditional LOD popping. Not ideal in a world made out of LEGO's. As any wonky geometry is
+                            quickly noticed.
+                            <br><br>
+                            There isn't a perfect solution for this. If you have the option then like mentioned you can increase
+                            the minimum residency. Granted that enough free VRAM is available. If not then you will need to add the following code. 
+                            Basically, you can request Nanite to preload/fetch specific meshes. This is done via the render thread but likely will get
+                            delegated from the gamethread. That's all good and well but there is no way for you to know yet if the mesh has been loaded in.
+                            For this I passed along a pointer to a bound delegate. Which gets stored together with the request but in separate array.
+                            Then when a certain required amount of residency gets achieved the system broadcasts the delegate (back over to the gamethread). 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+    <section class="footer">
+        <footer>
+            <p><strong>Sebastien Vermeulen</strong> - Tel.:+32(0)49/424.17.86 - E-mail: Sebastienvermeulen123@gmail.com</p>
+        </footer>
+    </section>
+</body>
+</html>

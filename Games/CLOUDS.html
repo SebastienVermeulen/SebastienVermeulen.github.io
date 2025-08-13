@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sebastien Vermeulen</title>
+    <meta property="title" content="Sebastien Vermeulen">
+    <meta property="description" content="SpaceControl">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sebastienvermeulen.github.io/Pages/SpaceControl.html">
+    <meta property="og:title" content="Sebastien Vermeulen">
+    <meta property="og:description" content="SpaceControl">
+    <meta property="og:image" content="https://sebastienvermeulen.github.io/images/SC_Cover.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sebastienvermeulen.github.io/Pages/SpaceControl.html">
+    <meta property="twitter:title" content="Sebastien Vermeulen">
+    <meta property="twitter:description" content="SpaceControl">
+    <meta property="twitter:image" content="https://sebastienvermeulen.github.io/images/SC_Cover.png">
+
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="CLOUDS.css">
+    <link rel="stylesheet" href="../footer.css">
+    <meta id="viewport" name="viewport">
+</head>
+<body>
+    <header>
+        <link rel="icon" href="../images/profile.png">
+        <nav>
+            <input type="checkbox" class="toggler">
+            <div class="hamburger"><div></div></div>
+            <div class="menu">
+                <div class="icon">
+                    <img src="../images/Icoon.png?raw=true" alt="icon">
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="social-link"><a href="https://www.linkedin.com/in/sebastien-vermeulen-ab0900194/">
+                            <img src="../images/linkedin_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="https://github.com/SebastienVermeulen">
+                            <img src="../images/github_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="mailto:Sebastienvermeulen123@gmail.com">
+                            <img src="../images/email_symbol.png?raw=true" alt="email-symbol">
+                        </a></li>
+                    </ul>
+                </div>
+                <div class="links">
+                    <ul>
+                        <a href="../index.html">
+                            <li class="title">
+                                <h1>SEBASTIEN VERMEULEN</h1>
+                                <p>- Graphics Programmer -</p>
+                            </li>
+                        </a>
+                    </ul>
+                    <ul>
+                        <li class="nav-link"><a href="../index.html">Work</a></li>
+                        <li class="nav-link"><a href="../Resume.html">Resume</a></li>
+                        <li class="nav-link"><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="main-section">
+        <div class="title">
+            <h1>Volumetric Clouds & Weather System</h1>
+            <p>Both local and global volumetric shapes rendered using correct PBR techniques. Handled by a simple weather system.</p>
+        </div>
+        <div class="discription">
+            <div>
+                <img src="../images/Clouds/cloud-1.gif" alt="cloud-1">
+            </div>
+            <div>
+                <p>
+                    One interesting field of research that still hasn't reached such a level of minutia and remains thus remains open-ended is volumetrics. There is much to explore around the mathematics that define the shapes of the clouds themselves and how we can performantly sculpt them to our liking. But also, on how to direct weather and the other effect that surround the cloud system itself. Not to mention the ever-evolving field of physics and the pursuit of correct PBR formulas.
+                    <br><br>
+                    At GOBO we wanted to see how far we reasonably push our knowledge, learning about the above and bringing that information to a workable solution in isolation at least. This didn’t need to be feature complete or extensive, it just had to show the potential of such a custom build implementation.
+                    <br><br>
+                    So, to set a scope of what will be discussed, I implemented: a local volumetric shader, a full screen volumetric cloud shader, correct PBR formulas (Beer-Lambert, GG Powdered Sugar, Henyey-Greenstein dual lobed phase function, Oz-Wrenninge multi-scattering), cloud shaping functionality through simple UI, and a weather system (although this could only influence clouds density according to a 2D weather map texture).
+                    <br><br>
+                    Now, having said all that, let's discuss some of this in a little more detail. Do take note, that I cannot give out any code, and many of these pictures were made during development. So let's first have a look at some of the nicer ones:
+                </p>
+            </div>
+        </div>
+        <div class="scroll-container">
+            <img src="../images/Clouds/cloud-1.png" id="cloud-1">
+            <img src="../images/Clouds/cloud-15.png">
+            <img src="../images/Clouds/cloud-16.png">
+            <img src="../images/Clouds/cloud-17.png">
+            <img src="../images/Clouds/cloud-18.png" id="cloud-18">
+        </div>
+        <div class="details">
+            <div class="details-div">
+                <h2>Local Vs Global:</h2>
+                <p>
+                    Reasonably, a developer wants at least two types of volumes, local and global. In this case I explored both in the simplest way possible. There are obvious upsides and downsides, not to mention the potential optimizations.
+                    <br><br>
+                    First, for the local volumes we use a bounding cube. With the faces inverted. Then in the pixel shader we can calculate the world position, with which we can start raymarching.
+                    <br><br>
+                    Second for the global volumes, like clouds, we use a full screen pass. And we ray march for one out of four of our pixels. Using dithering, we swap between all of these each frame. And then integrate them into a persistent target (keeping in mind reprojection from camera movement).
+                </p>
+                <div class="LocalGlobal-images">
+                    <img src="../images/Clouds/cloud-10.png" id="cloud-10">
+                    <img src="../images/Clouds/cloud-2.png" id="cloud-2">
+                </div>
+            </div>
+            <div class="details-div">
+                <h2>PBR Formulas:</h2>
+                <p>
+                    The basic idea behind Beer’s Law (Beer-Lambert) is to simulate the
+                    absorption and scattering of light through a medium of specified
+                    density over a certain length. From this, we can already: one, simulate
+                    the see-through properties of volumes; and two, simulate a combination
+                    of various colours. As you can see here, what’s neat is the early
+                    scattering and absorption of red light, causing more blue light to
+                    remain the further you get inside of the shape. Also notable are the 
+                    shadows cast by the volume onto itself, due to the diminishment
+                    of the light as it has already travelled some distance.
+                </p>
+                <div class="Beer-Lambert">
+                    <img src="../images/Clouds/cloud-3.png" alt="cloud-3">
+                    <img src="../images/Clouds/cloud-11.png" alt="cloud-11">
+                </div>
+                <p>
+                    The "powdered sugar" effect as described by Guerrilla Games is a natural
+                    phenomenon for which we don’t currently have a proper physically
+                    accurate formula. However, as graphics programmers, we can handwave
+                    some of this since it mainly needs to look correct, behave as expected,
+                    and look good overall.
+                    <br><br>
+                    In clouds, powdered sugar, and snow, we have this weird effect where
+                    the edges of bulges on the “surface” are darker than the inside of
+                    the actual shape. This is because these materials get their colour
+                    from light scattering. If you remember, in Beer’s Law light the amount
+                    of scattered light is a function of the distance travelled, hence
+                    why on shallow intersections a volume looks darker.
+                    <br><br>
+                    In order to fix this, we basically combine Beer’s Law with some
+                    simple but effective maths, that you can find in this
+                    presentation:
+                    <a href="https://d3d3g8mu99pzk9.cloudfront.net/AndrewSchneider/The-Real-time-Volumetric-Cloudscapes-of-Horizon-Zero-Dawn.pdf" target="_blank">GG-Clouds</a>.
+                    This gives the effect below, left is the regular Beer’s law and right
+                    is with GG’s adjustment.
+                </p>
+                <div class="GG-Powdered-Snow">
+                    <img src="../images/Clouds/cloud-12.png" alt="cloud-12">
+                    <img src="../images/Clouds/cloud-13.png" alt="cloud-13">
+                </div>
+                <p>
+                    The Henyey-Greenstein formula allows us to direct the light in a 
+                    lobed shape. Since most of the time, light will want to keep moving 
+                    in the same direction, or at least will tend to be reflected back 
+                    towards its origin. Using this, we can control the size of the bright spot 
+                    you see below.
+                </p>
+                <img src="../images/Clouds/cloud-14.png" id="cloud-14">
+            </div>
+            <div class="details-div">
+                <h2>Cloud Shaping:</h2>
+                <p>
+                    Artists like having control over the shape of their clouds. However,
+                    it is surprisingly troublesome to do. Not to mention, once you have
+                    a good-looking cloud, leaving levers available to them to adjust
+                    the shape further is not easy either! So, for this, we needed to
+                    think of some basic data from which this original shape can be
+                    derived. This basic information can then be used to further sculpt the
+                    final shape.
+                    <br><br>
+                    In our case, I decided to use the build-in curves within Unreal.
+                    These allow us to define some basic info: density at height,
+                    billowiness at height, whirliness at height. Height being the
+                    x-axis from 0 to 1 mapped onto the actual bounds in metres
+                    (IE 0-1 -> 500 m-4 km). Curves however can’t directly be pushed to
+                    the GPU. Instead, I made it so that 32 cloud types could be defined,
+                    all of which get sampled and drawn as 1D textures on a 2D texture.
+                    Here you can see an example.
+                </p>
+                <div class="cloud-shape-detail">
+                    <img src="../images/Clouds/cloud-5.png" alt="cloud-5">
+                    <img src="../images/Clouds/cloud-4.png" alt="cloud-4">
+                </div>
+                <p>
+                    Then, finally, once a shape has been defined, we can erode from it.
+                    Using the billowiness and whirliness parameters mentioned before.
+                    Erosion is quite powerful but hard to direct, as you can see on the
+                    first image below. But if done well and in different octaves, then
+                    progressive results, as shown in the three images below can be achieved.
+                </p>
+                <div class="scroll-container-2">
+                    <img src="../images/Clouds/cloud-9.png" id="cloud-9">
+                    <img src="../images/Clouds/cloud-6.png">
+                    <img src="../images/Clouds/cloud-7.png">
+                    <img src="../images/Clouds/cloud-8.png" id="cloud-8">
+                </div>
+            </div>
+            <div class="details-div">
+                <h2>Weathermap:</h2>
+                <p>
+                    Finally, we must mention where our clouds are going to be placed.
+                    We know how dense and eroded they will look at certain heights,
+                    but no location has been mentioned yet. This, at the end of the day,
+                    is the simplest step. Simply using a single-channel texture, we can
+                    define the coverage. A test example can be seen below.
+                </p>
+                <img src="../images/Clouds/cloud-1.png" id="cloud-1">
+                <img src="../images/Clouds/cloud-19.png" id="cloud-19">
+            </div>
+        </div>
+    </section>
+        
+    <section class="footer">
+        <footer>
+            <p><strong>Sebastien Vermeulen</strong> - Tel.:+32(0)49/424.17.86 - E-mail: Sebastienvermeulen123@gmail.com</p>
+        </footer>
+    </section>
+</body>
+</html>

@@ -1,0 +1,233 @@
+/*SECTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+section
+{
+    background: #252734;
+    position: relative;
+    width: 1200px;
+    min-width: 620px;
+    margin: 0px;
+}
+
+.main-section
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    position: relative;
+    background-size: 100%;
+    padding: 30px 0 30px 0;
+}
+
+p
+{
+    color: #a9a9a9;
+}
+
+li
+{
+    color: #a9a9a9;
+}
+
+.title
+{
+    display: block;
+    width: 100%;
+}
+.title h1
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+.title p
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+
+.discription
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+}
+.discription img
+{
+    vertical-align: middle;
+    width: 900px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 40px;
+}
+.discription p
+{
+    width: 75%;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.8;
+    margin: 0 40px;
+    margin-top: 20px;
+    text-align: left;
+}
+.discription a
+{
+    text-decoration: none;
+    display: inline-block;
+    width: 45%;
+}
+
+.scroll-container
+{
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 0px;
+    scrollbar-color: white #252734;
+    scroll-padding: 0;
+    height: 350px;
+    width: 75%;
+    position: relative;
+    left: 12.5%;
+}
+div.scroll-container img 
+{
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    padding: 0px 10px;
+}
+div.scroll-container #cloud-1 
+{
+    padding: 0px 0px 0px 10px;
+}
+div.scroll-container #cloud-1 
+{
+    padding: 0px 10px 0px 0px;
+}
+
+.details-div
+{
+    width: 1200px;
+}
+.LocalGlobal-images
+{
+    display: inline-block;
+    height: 276px;
+    width: 100%;
+}
+.LocalGlobal-images img
+{
+    display: inline-block;
+    height: 100%;
+}
+
+.Beer-Lambert
+{
+    display: inline-block;
+    height: 291px;
+    width: 100%;
+}
+.Beer-Lambert img
+{
+    display: inline-block;
+    height: 100%;
+}
+
+.GG-Powdered-Snow
+{
+    display: inline-block;
+    height: 318px;
+    width: 100%;
+}
+.GG-Powdered-Snow img
+{
+    display: inline-block;
+    height: 100%;
+}
+
+#cloud-14
+{
+    height: 350px;
+}
+
+.cloud-shape-detail
+{
+    height: 400px;
+}
+.cloud-shape-detail img
+{
+    height: 100%;
+}
+
+.scroll-container-2
+{
+    background-color: #252734;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 0px;
+    scrollbar-color: white #252734;
+    scroll-padding: 0;
+    height: 300px;
+    width: 1200px;
+}
+.scroll-container-2 img 
+{
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    padding: 0px 5px;
+}
+.scroll-container-2 #cloud-9 
+{
+    padding: 0px 30px 0px 0px;
+}
+.scroll-container-2 #cloud-8 
+{
+    padding: 0px 0px 0px 5px;
+}
+
+#cloud-1
+{
+    width: 1200px;
+
+}#cloud-19
+{
+    width: 1200px;
+}
+
+.link
+{
+    text-align: center;
+    width: 100%;
+}
+.link p
+{
+    margin-top: 0;
+}
+
+.ymal
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0px 0;
+}
+.ymal h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 40px;
+}
+/*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/

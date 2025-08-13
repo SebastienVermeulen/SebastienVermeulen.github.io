@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sebastien Vermeulen</title>
+    <meta property="title" content="Sebastien Vermeulen">
+    <meta property="description" content="SpaceControl">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sebastienvermeulen.github.io/Pages/SpaceControl.html">
+    <meta property="og:title" content="Sebastien Vermeulen">
+    <meta property="og:description" content="SpaceControl">
+    <meta property="og:image" content="https://sebastienvermeulen.github.io/images/SC_Cover.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sebastienvermeulen.github.io/Pages/SpaceControl.html">
+    <meta property="twitter:title" content="Sebastien Vermeulen">
+    <meta property="twitter:description" content="SpaceControl">
+    <meta property="twitter:image" content="https://sebastienvermeulen.github.io/images/SC_Cover.png">
+
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="NOISE.css">
+    <link rel="stylesheet" href="../footer.css">
+    <meta id="viewport" name="viewport">
+</head>
+<body>
+    <header>
+        <link rel="icon" href="../images/profile.png">
+        <nav>
+            <input type="checkbox" class="toggler">
+            <div class="hamburger"><div></div></div>
+            <div class="menu">
+                <div class="icon">
+                    <img src="../images/Icoon.png?raw=true" alt="icon">
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="social-link"><a href="https://www.linkedin.com/in/sebastien-vermeulen-ab0900194/">
+                            <img src="../images/linkedin_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="https://github.com/SebastienVermeulen">
+                            <img src="../images/github_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="mailto:Sebastienvermeulen123@gmail.com">
+                            <img src="../images/email_symbol.png?raw=true" alt="email-symbol">
+                        </a></li>
+                    </ul>
+                </div>
+                <div class="links">
+                    <ul>
+                        <a href="../index.html">
+                            <li class="title">
+                                <h1>SEBASTIEN VERMEULEN</h1>
+                                <p>- Graphics Programmer -</p>
+                            </li>
+                        </a>
+                    </ul>
+                    <ul>
+                        <li class="nav-link"><a href="../index.html">Work</a></li>
+                        <li class="nav-link"><a href="../Resume.html">Resume</a></li>
+                        <li class="nav-link"><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="main-section">
+        <div class="title">
+            <h1>Noise Generation</h1>
+            <p>The three most well know value noise types, Voronoi, Perlin, and Simplex.</p>
+            <img src="../images/Noise/noise-0.png">
+        </div>
+        <div class="game">
+            <div>
+                <h2>Value noise</h2>
+                <p>
+                    As a final piece of research, I implemented these three value noise types.
+                    They are incredibly useful and versatile, and because of that, are used very often.
+                    Besides this, with a little added effort, they can be made repeatable.
+                    <br>
+                    Here you have Voronoi, Perlin, and Simplex:
+                </p>
+                <div class="scroll-container">
+                    <img src="../images/Noise/voronoi-0.png">
+                    <img src="../images/Noise/perlin-0.png">
+                    <img src="../images/Noise/simplex-0.png">
+                </div>
+            </div>
+            <div>
+                <h2>Octaves</h2>
+                <p>
+                    Additionally, they are neat, as you can layer multiple "octaves" of
+                    them to create highly detailed noise, often used for terrain or textures.
+                    <br>
+                    Here you have higher octaves of Voronoi, Perlin, and Simplex:
+                </p>
+                <div class="scroll-container">
+                    <img src="../images/Noise/voronoi-1.png">
+                    <img src="../images/Noise/perlin-1.png">
+                    <img src="../images/Noise/simplex-1.png">
+                </div>
+            </div>
+            <div>
+                <h2>Interpolation</h2>
+                <p>
+                    Finally, a very neat trick that can be performed when calculating these
+                    textures is to also generate their normals. Since value noise is normally
+                    a function of position, we can take the integral of the method used. This
+                    gives us an analytical approach to determine the normals, which is much
+                    better than using screen-space solutions.
+                    <br>
+                    Here you have normals of Voronoi, Perlin, and Simplex:
+                </p>
+                <div class="scroll-container">
+                    <img src="../images/Noise/voronoi-2.png">
+                    <img src="../images/Noise/perlin-2.png">
+                    <img src="../images/Noise/simplex-2.png">
+                </div>
+                <p>
+                    Here you have higher octaved normals of Voronoi, Perlin, and Simplex:
+                </p>
+                <div class="scroll-container">
+                    <img src="../images/Noise/voronoi-3.png">
+                    <img src="../images/Noise/perlin-3.png">
+                    <img src="../images/Noise/simplex-3.png">
+                </div>
+            </div>
+        </div>
+    </section>
+        
+    <section class="footer">
+        <footer>
+            <p><strong>Sebastien Vermeulen</strong> - Tel.:+32(0)49/424.17.86 - E-mail: Sebastienvermeulen123@gmail.com</p>
+        </footer>
+    </section>
+</body>
+</html>

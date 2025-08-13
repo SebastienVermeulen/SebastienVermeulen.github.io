@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sebastien Vermeulen</title>
+    <meta property="title" content="Sebastien Vermeulen">
+    <meta property="description" content="SpaceControl">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sebastienvermeulen.github.io/Pages/SpaceControl.html">
+    <meta property="og:title" content="Sebastien Vermeulen">
+    <meta property="og:description" content="SpaceControl">
+    <meta property="og:image" content="https://sebastienvermeulen.github.io/images/SC_Cover.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sebastienvermeulen.github.io/Pages/SpaceControl.html">
+    <meta property="twitter:title" content="Sebastien Vermeulen">
+    <meta property="twitter:description" content="SpaceControl">
+    <meta property="twitter:image" content="https://sebastienvermeulen.github.io/images/SC_Cover.png">
+
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="GRASS.css">
+    <link rel="stylesheet" href="../footer.css">
+    <meta id="viewport" name="viewport">
+</head>
+<body>
+    <header>
+        <link rel="icon" href="../images/profile.png">
+        <nav>
+            <input type="checkbox" class="toggler">
+            <div class="hamburger"><div></div></div>
+            <div class="menu">
+                <div class="icon">
+                    <img src="../images/Icoon.png?raw=true" alt="icon">
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="social-link"><a href="https://www.linkedin.com/in/sebastien-vermeulen-ab0900194/">
+                            <img src="../images/linkedin_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="https://github.com/SebastienVermeulen">
+                            <img src="../images/github_symbol.png?raw=true" alt="linkedin-symbol">
+                        </a></li>
+                        <li class="social-link"><a href="mailto:Sebastienvermeulen123@gmail.com">
+                            <img src="../images/email_symbol.png?raw=true" alt="email-symbol">
+                        </a></li>
+                    </ul>
+                </div>
+                <div class="links">
+                    <ul>
+                        <a href="../index.html">
+                            <li class="title">
+                                <h1>SEBASTIEN VERMEULEN</h1>
+                                <p>- Graphics Programmer -</p>
+                            </li>
+                        </a>
+                    </ul>
+                    <ul>
+                        <li class="nav-link"><a href="../index.html">Work</a></li>
+                        <li class="nav-link"><a href="../Resume.html">Resume</a></li>
+                        <li class="nav-link"><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="main-section">
+        <div class="title">
+            <h1>Amplification & Mesh Shaders</h1>
+            <p>
+                Exploring the power and usecases of amplification- and mesh-shaders.
+                <br>
+                In this case to render wasteful amounts of terrain and foliage.
+            </p>
+        </div>
+        <div class="discription">
+            <img src="../images/Grass/grass-0.png" alt="grass-0">
+            <img src="../images/Grass/grass-2.gif" alt="grass-2">
+            <p>
+                Mesh shader, and by extension amplification shaders, are a more
+                often than not overlooked alternative to the regular geometry
+                pipeline, and hold some distinct but rather tricky-to-utilize
+                advantages. With this test, we wanted to see how they
+                work, how easy they are to implement, and to note which gotchas
+                they have.
+            </p>
+        </div>
+        <div class="game">
+            <div class="details-div">
+                <h2>Theory:</h2>
+                <p>
+                    These shaders work almost exactly like compute shaders, where a
+                    set number of threads are defined, which is then scaled on the
+                    CPU’s side via launching thread groups. The first and foremost
+                    difference lies in the fact that you can define output geometry
+                    data from these threads. This comes with a lot of caveats but
+                    still, that’s super neat!
+                    <br><br>
+                    First and foremost, you must consider the limits of your individual
+                    thread groups, we can’t just output infinite geometry, after all. At
+                    the end of the day, there are still physical limits to our GPUs,
+                    and in this case that is in the array size of 256 verts and 256 prims.
+                    Besides this, the total output data size must not eclipse 32kb in
+                    the mesh shader, nor 16kb for the amplification shader, and
+                    combined, these must not exceed 47kb either. This is per instance
+                    (thread group), of course.
+                </p>
+                <img src="../images/Grass/grass-3.png" alt="grass-3">
+                <p>
+                    With that out of the way, let’s discuss how these two shaders
+                    work together. The mesh shader itself is a replacement for
+                    the whole geometry pipeline, replacing your: input assembler,
+                    vertex shaders, geometry shaders, hull shaders, and domain shader.
+                    Only from the rasteriser onwards does the traditional pipeline
+                    kick back in. The amplification shader is an optional step
+                    that can be launched before the mesh shaders. It exists so
+                    the user can prepare data and properly allocate the correct
+                    number of thread groups. Each thread group has one amplification
+                    shader, but this can spawn many mesh shader thread groups.
+                    This is done via the “DispatchMesh” function, which is
+                    groupshared and must be uniformly called.
+                </p>
+                <img src="../images/Grass/grass-4.png" alt="grass-4">
+                <p>
+                    Why would you ever need to do this though? Well, it can,
+                    for example: allow you to do occlusion querying on the GPU,
+                    or spawn multiple instances, i.e. allocate dynamic amounts of
+                    work and still efficiently utilise shader occupancy. This
+                    is further aided by the “SetMeshOutputCounts” in the mesh shader,
+                    which tells the rasteriser beforehand how much memory to allocate,
+                    improving performance.
+                    <br><br>
+                    All of this is quite important since these types of shaders are
+                    not very good at doing asynchronous work. So, you must launch
+                    as much of it in one go as possible to properly utilise your
+                    performance. Not to mention the concept of the geometry engine
+                    and the localizing of indices and vertices.
+                    <br><br>
+                    In short, for each thread group you define your vertices and
+                    indices locally, rather than as you would for a regular mesh. Now
+                    over many years, programmers have worked to make mesh compilers
+                    good at ordering this stuff, so that you have the least
+                    possible duplicate data, but also the least possible duplicate
+                    data in these thread groups. This is important, as it would impact the
+                    rasteriser’s performance otherwise, having to shade
+                    more verts or indices. But us assembling this stuff on
+                    the fly, of course, doesn’t keep these optimisations in mind.
+                    That’s why it is important to read up on the geometry engine
+                    and its optimal functioning.
+                    <br><br>
+                    In conclusion, theory wise, very cool! But it has really
+                    only proper use-cases for systems of scale: grass rendering,
+                    terrain, etc... Due to the lack of parallelisation.
+                </p>
+            </div>
+            <div class="details-div">
+                <h2>Implementation:</h2>
+                <p>
+                    Phew, after a book worth of incomplete theory, I do want to show some implementation
+                    as well. For this, I ended up using 
+                    <a href="https://www.ea.com/seed/news/gigi">GIGI</a>
+                    , a cool program developed by EA that
+                    handles all the boilerplate via a node-based graph. Additionally, to keep it
+                    simple and straightforward, I opted to only use mesh shaders. Otherwise, a lot
+                    more indirections must get sorted, which is not particularly the point. To start,
+                    one group with 4 blades of grass, each having 11 triangles.
+                </p>
+                <img src="../images/Grass/grass-5.png" id="grass-5">
+                <p>
+                    Really, if it is possible to render more than one blade,
+                    then the question becomes what our limit at this early stage is.
+                    An example of 1000 blades, running with no issues:       
+                </p>
+                <img src="../images/Grass/grass-6.png" id="grass-6">
+                <p>
+                    You can, of course, add many, many more. Personally, I only had
+                    issues after 600,000. Once you add some more vertex data and features,
+                    this number will decrease. But we are handling the rendering quite
+                    inefficiently. Remember that we want to try and maximise wave occupancy,
+                    and so we should try and render more blades per thread group. Here you
+                    can see the difference easily; tris are coloured based on their group
+                    ID.
+                </p>
+                <img src="../images/Grass/grass-7.png" id="grass-7">
+                <img src="../images/Grass/grass-8.png" id="grass-8">
+                <p>
+                    I try to call these combined blades of grass “patches” to make them
+                    a little more distinct. Really, we want to use wave occupancy as
+                    effectively as possible, but in this case, I do also want to show
+                    what is possible. For example, LOD selection. This should be done
+                    in an amplification shader, so that we don’t waste resources. But
+                    it doesn’t matter too much since we are going to use the same number
+                    of groups anyhow. LOD0 is red, LOD1 is green, and LOD2 is blue.
+                </p>
+                <img src="../images/Grass/grass-9.png" id="grass-9">
+                <p>
+                    Putting this stuff together, with also a secondary mesh which we can
+                    swap between at random, we can create a packed meadow. Although it
+                    really still needs some terrain and sky to tie it all together.
+                    <br><br>
+                    This is easily achievable; the terrain can also be handled by a mesh
+                    shader since it is just a set of repeating quads. The furthest quads
+                    can be moved to the end of the terrain the camera is moving towards.
+                    Variation is also easy we can simply adjust the y-axis of the verts
+                    based on their xz-axes. The sky is just handled via a full-screen
+                    compute shader.
+                </p>
+                <img src="../images/Grass/grass-10.png" id="grass-10">
+                <img src="../images/Grass/grass-11.png" id="grass-11">
+            </div>
+            <div class="details-div">
+                <h2>Viewmodes:</h2>
+                <p>
+                    Having all this geometry, I did also make some viewmodes, to more easily debug what's
+                    going on. These are debug viewmodes for: 
+                    <br>
+                    Vertex Color, Normals, TypeID, LODs, Position UV, Group Coloring, and VertexID.
+                </p>
+                <div class="scroll-container">
+                    <img src="../images/Grass/grass-12.png" alt="grass-12">
+                    <img src="../images/Grass/grass-13.png" alt="grass-13">
+                    <img src="../images/Grass/grass-14.png" alt="grass-14">
+                    <img src="../images/Grass/grass-15.png" alt="grass-15">
+                    <img src="../images/Grass/grass-16.png" alt="grass-16">
+                    <img src="../images/Grass/grass-17.png" alt="grass-17">
+                    <img src="../images/Grass/grass-18.png" alt="grass-18">
+                </div>
+            </div>
+        </div>
+    </section>
+        
+    <section class="footer">
+        <footer>
+            <p><strong>Sebastien Vermeulen</strong> - Tel.:+32(0)49/424.17.86 - E-mail: Sebastienvermeulen123@gmail.com</p>
+        </footer>
+    </section>
+</body>
+</html>

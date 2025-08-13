@@ -1,0 +1,171 @@
+/*SECTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+section
+{
+    background: #252734;
+    position: relative;
+    width: 1200px;
+    min-width: 620px;
+    margin: 0px;
+}
+
+.main-section
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    position: relative;
+    background-size: 100%;
+    padding: 30px 0 30px 0;
+}
+
+p
+{
+    color: #a9a9a9;
+}
+
+li
+{
+    color: #a9a9a9;
+}
+
+.title
+{
+    display: block;
+    width: 100%;
+}
+.title h1
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+.title p
+{
+    margin: 0 auto 30px auto;
+    display: block;
+    align-self: center;
+    width: auto;
+    text-align: center;
+}
+
+.discription
+{
+    display: inline-block;
+    width: 1200px;
+    text-align: left;
+    margin: 0 0 20px 0;
+}
+.discription img
+{
+    width: 49%;
+    height: auto;
+    display: inline-block;
+    margin: 0px; 
+}
+.discription p
+{
+    width: 900px;
+    position: relative;
+    left: 150px;
+    display: inline-block;
+    line-height: 1.8;
+    margin: 20px 0;
+}
+
+.game
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+}
+.details-div
+{
+    width: 1200px;
+    text-align: left;
+}
+
+#grass-5
+{
+    width: 650px;
+}
+#grass-6
+{
+    width: 650px;
+}
+
+#grass-7
+{
+    display: inline-block;
+    height: 300px;
+}
+#grass-8
+{
+    display: inline-block;
+    height: 300px;
+}
+
+#grass-9
+{
+    width: 650px;
+}
+
+#grass-10
+{
+    width: 1200px;
+}
+#grass-11
+{
+    width: 1200px;
+    margin-bottom: 20px;
+}
+
+.scroll-container
+{
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 0px;
+    scrollbar-color: white #252734;
+    scroll-padding: 0;
+    height: 350px;
+    width: 100%;
+}
+div.scroll-container img 
+{
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    padding: 0px 10px;
+}
+
+.link
+{
+    text-align: center;
+    width: 100%;
+}
+.link p
+{
+    margin-top: 0;
+}
+
+.ymal
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0px 0;
+}
+.ymal h2
+{
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 20px 40px;
+}
+/*SECTIONS |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
