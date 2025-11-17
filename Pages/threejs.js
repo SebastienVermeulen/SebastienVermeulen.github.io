@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js'; // For stat tracking, like FPS
-import { vec3 } from 'three/tsl';
 
 // ----------------------------------------
 // Helpers
@@ -135,8 +134,8 @@ loadShader('./threejs.glsl').then((glslCode) =>
         
             shader.uniforms.twistAmount = { value: 10 };
             shader.uniforms.helixRadius = { value: 1 };
-            shader.uniforms.bendAxis = { value: vec3(0, 0, 1) };
-            shader.uniforms.bendOrigin = { value: vec3(-1, 0, 0) };
+            shader.uniforms.bendAxis = { value: new THREE.Vector3(0, 0, 1) };
+            shader.uniforms.bendOrigin = { value: new THREE.Vector3(-1, 0, 0) };
             shader.uniforms.bendAngle = { value: 0 };
         
             shader.vertexShader =                 
