@@ -72,8 +72,67 @@ function currentAmplitude(initialMax, steepness, time)
 // Add Abs to create one sided bounce
 function oscillatingBounce(initialMax, steepness, frequency, time)
 {
-    var amplitude = currentAmplitude(initialMax, steepness, time);
-    return amplitude * Math.cos(frequency * time);
+    // Vector2 version
+    if (initialMax instanceof THREE.Vector2) 
+    {
+        return new THREE.Vector2(
+            oscillatingBounce(initialMax.x, steepness, frequency, time),
+            oscillatingBounce(initialMax.y, steepness, frequency, time));
+    }
+
+    // Scalar version
+    if (typeof initialMax === "number")
+    {
+        const signed = Math.sign(initialMax);
+        const amplitude = signed * currentAmplitude(Math.abs(initialMax), steepness, time);
+        return amplitude * Math.cos(frequency * time);
+    }
+
+    throw new TypeError("oscillatingBounce: unsupported type");
+}
+
+function lerpVectors(v1, v2, alpha)
+{
+    v1.x = v1.x + (v2.x - v1.x) * alpha;
+    v1.y = v1.y + (v2.y - v1.y) * alpha;
+    return v1;
+}
+
+function clamp(n , min, max)
+{
+    return Math.min(Math.max(n, min), max);
+}
+
+function clampVector(v, min, max)
+{
+    // Vector4 version
+    if (v instanceof THREE.Vector4)
+    {
+        return new THREE.Vector4(
+                clamp(v.x, min, max),
+                clamp(v.y, min, max),
+                clamp(v.z, min, max),
+                clamp(v.w, min, max));
+    }
+
+    // Vector3 version
+    if (v instanceof THREE.Vector3)
+    {
+        return new THREE.Vector3(
+                clamp(v.x, min, max),
+                clamp(v.y, min, max),
+                clamp(v.z, min, max));
+    }
+
+    // Vector2 version
+    if (v instanceof THREE.Vector2)
+    {
+        return new THREE.Vector2(
+                clamp(v.x, min, max),
+                clamp(v.y, min, max));
+    }
+
+    throw new TypeError("oscillatingBounce: unsupported type");
 }
 
 // ----------------------------------------
@@ -134,29 +193,36 @@ loadShader('./threejs.glsl').then((glslCode) =>
         
             shader.uniforms.twistAmount = { value: 10 };
             shader.uniforms.helixRadius = { value: 1 };
-            shader.uniforms.bendAxis = { value: new THREE.Vector3(0, 0, 1) };
-            shader.uniforms.bendOrigin = { value: new THREE.Vector3(-1, 0, 0) };
-            shader.uniforms.bendAngle = { value: 0 };
+            shader.uniforms.bendAngle = { value: new THREE.Vector2(0.0, 0.0) };
         
             shader.vertexShader =                 
                 `
                     uniform float twistAmount;
                     uniform float helixRadius;
-                    uniform vec3 bendAxis;
-                    uniform vec3 bendOrigin;
-                    uniform float bendAngle;\n
-                ` + 
+                    uniform vec2 bendAngle;\n
+                ` +
                 glslCode +
                 shader.vertexShader.replace(
                     '#include <begin_vertex>',
                     `
                         vec3 transformed = position;
 
+                        // Bend angle flip
+                        vec2 bendAngleSign = sign(bendAngle);
+
+                        // Bend X
                         transformed = Math_Bend(
-                            transformed, 
-                            bendAxis,
-                            bendOrigin,
-                            bendAngle);
+                            transformed,
+                            vec3(0, 0, 1),                                     // BendAxis
+                            bendAngleSign.x * vec3(-0.5, 0, 0),                   // BendOrigin
+                            bendAngle.x);
+                            
+                        // Bend Z
+                        transformed = Math_Bend(
+                            transformed,
+                            vec3(1, 0, 0),                                     // BendAxis
+                            bendAngleSign.y * vec3(0, 0, -0.5),                   // BendOrigin
+                            -bendAngle.y);
                     `);
         };
     });
@@ -174,17 +240,13 @@ loadShader('./threejs.glsl').then((glslCode) =>
         
             shader.uniforms.twistAmount = { value: 10 };
             shader.uniforms.helixRadius = { value: 1 };
-            shader.uniforms.bendAxis = { value: new THREE.Vector3(0, 0, 1) };
-            shader.uniforms.bendOrigin = { value: new THREE.Vector3(-1, 0, 0) };
-            shader.uniforms.bendAngle = { value: 0 };
+            shader.uniforms.bendAngle = { value: new THREE.Vector2(0.0, 0.0) };
         
             shader.vertexShader = 
                 `
                     uniform float twistAmount;
                     uniform float helixRadius;
-                    uniform vec3 bendAxis;
-                    uniform vec3 bendOrigin;
-                    uniform float bendAngle;\n
+                    uniform vec2 bendAngle;\n
                 ` +
                 glslCode +
                 shader.vertexShader.replace(
@@ -192,11 +254,22 @@ loadShader('./threejs.glsl').then((glslCode) =>
                     `
                         vec3 transformed = position;
 
+                        // Bend angle flip
+                        vec2 bendAngleSign = sign(bendAngle);
+
+                        // Bend X
                         transformed = Math_Bend(
                             transformed,
-                            bendAxis,
-                            bendOrigin,
-                            bendAngle);
+                            vec3(0, 0, 1),                                     // BendAxis
+                            bendAngleSign.x * vec3(-0.5, 0, 0),                   // BendOrigin
+                            bendAngle.x);
+                            
+                        // Bend Z
+                        transformed = Math_Bend(
+                            transformed,
+                            vec3(1, 0, 0),                                     // BendAxis
+                            bendAngleSign.y * vec3(0, 0, -0.5),                   // BendOrigin
+                            -bendAngle.y);
                     `);
         };
     });
@@ -286,8 +359,8 @@ renderer.domElement.addEventListener('mousedown', e =>
         previousMouseStart.y = e.clientY;
         pressTime = clock.getElapsedTime();
 
-        initialMax_Effective = oscillatingBounce(initialMax_Lerped, steepness, frequency, pressTime - releaseTime);
-        initialMax_Lerped = initialMax_Effective;
+        initialMaxTarget = oscillatingBounce(initialMaxReal, steepness, frequency, pressTime - releaseTime);
+        initialMaxReal = initialMaxTarget;
     });
 
 // Drag
@@ -312,7 +385,7 @@ window.addEventListener('mouseup', e =>
         previousMouseEnd.y = e.clientY;
         releaseTime = clock.getElapsedTime();
 
-        if(!isDragging && initialMax_Effective < 0.0)
+        if (!isDragging)
         {
             invertDragDueToNegativeBend();
         }
@@ -321,38 +394,22 @@ window.addEventListener('mouseup', e =>
             translateMouseDragToBendLocation();
         }
 
-        canDrag = false;
         isDragging = false;
+        canDrag = false;
     });
     
 // ----------------------------------------
 // Interaction logic
 // ----------------------------------------
 
-// There are 3 variable to track the user input:
-//     1. - The effective target position
-//     2. - The measured addition to the target position (movement while grabbing, that gets added on mouse release to 1.)
-//     3. - The final position used for the deformation animation (lerps to 1.)
-
-// When the user grabs the object then the oscillations should pause.
-// And depending on his dragging we should make the bend more or less extreme, limited by absoluteMaxBend.
-// Then when released the oscillations should resume from said position.
-
-// TODO: It would be better to lerp the axis derectly
+// Bending gets done in carthesian coordinates
 
 // Bounce
-let bendOrigin_Effective = new THREE.Vector3(-1, 0, 0);
-let bendAxis_Effective = new THREE.Vector3(0, 0, 1);
-let initialMax_Effective = 0.0;
-
-let bendOrigin_Addition = new THREE.Vector3(0, 0, 0);
-
-let bendOrigin_Lerped = new THREE.Vector3(0, 0, 0);
-let bendAxis_Lerped = new THREE.Vector3(0, 0, 0);
-let initialMax_Lerped = 0.0;
+let initialMaxTarget = new THREE.Vector2(0.0, 0.0);
+let initialMaxReal = new THREE.Vector2(0.0, 0.0);
 
 // Regular cconst parameters
-const absoluteMaxBend = 0.6;
+const absoluteMaxBend = 0.9;
 const steepness = 0.2;
 const frequency = 5.0;
 
@@ -361,31 +418,27 @@ function translateMouseDragToBendLocation()
     deltaMouse.copy(previousMouseEnd.clone().sub(previousMouseStart));
 
     // Position
-    bendOrigin_Addition.x = 2.0 * deltaMouse.x / renderer.domElement.width;
-    bendOrigin_Addition.z = 2.0 * deltaMouse.y / renderer.domElement.height;
-
-    var additionLength = bendOrigin_Addition.length();
-    var dotOfAddition = bendOrigin_Effective.dot(bendOrigin_Addition.normalize());
-    if (1.0 < bendOrigin_Addition.normalize().length())
-    {
-        bendOrigin_Addition = bendOrigin_Addition.normalize();
-    }
-    bendOrigin_Effective = bendOrigin_Addition;
-
-    // Axis is dependent on position
-    bendAxis_Effective = bendOrigin_Addition.crossVectors(bendOrigin_Addition, up);
+    var cartesianMovement = new THREE.Vector2(0.0, 0.0);
+    cartesianMovement.x = 4.0 * deltaMouse.x / renderer.domElement.width;
+    cartesianMovement.y = 4.0 * deltaMouse.y / renderer.domElement.height;
 
     // Power needs to be added or subtracted from the difference in position
-    initialMax_Effective = absoluteMaxBend * dotOfAddition * additionLength;
+    initialMaxTarget = cartesianMovement.multiplyScalar(absoluteMaxBend);
+    initialMaxTarget.copy(clampVector(initialMaxTarget, -absoluteMaxBend, absoluteMaxBend));
 }
 
 function invertDragDueToNegativeBend()
 {
-    bendAxis_Effective = bendAxis_Effective.negate();
-    bendAxis_Lerped = bendAxis_Effective;
-
-    initialMax_Lerped = -initialMax_Lerped;
-    initialMax_Effective = initialMax_Lerped;
+    if (initialMaxTarget.x < 0.0)
+    {
+        initialMaxTarget.x = -initialMaxTarget.x;
+        initialMaxReal.x = -initialMaxReal.x;
+    }
+    if (initialMaxTarget.y < 0.0)
+    {
+        initialMaxTarget.y = -initialMaxTarget.y;
+        initialMaxReal.y = -initialMaxReal.y;
+    }
 }
 
 let lerpSpeed = 1.0;
@@ -393,14 +446,8 @@ function lerpToTarget(deltaTime)
 {
     var lerp = lerpSpeed * deltaTime;
 
-    // Position
-    bendOrigin_Lerped = bendOrigin_Lerped.lerpVectors(bendOrigin_Lerped, bendOrigin_Effective, lerp);
-
-    // Axis
-    bendAxis_Lerped = bendAxis_Lerped.lerpVectors(bendAxis_Lerped, bendAxis_Effective, lerp);
-
     // Power
-    initialMax_Lerped = initialMax_Lerped + (initialMax_Effective - initialMax_Lerped) * lerp;
+    initialMaxReal.copy(lerpVectors(initialMaxReal, initialMaxTarget, lerp));
 }
 
 // ----------------------------------------
@@ -437,32 +484,26 @@ function animate(now)
         const twist = 0;
         const radius = 0.5;
 
-        var bendAngle = 0.0;
+        var bendAngle = new THREE.Vector2(0.0, 0.0);
         lerpToTarget(deltaTime);
 
         if(!canDrag)
         {
-            bendAngle = oscillatingBounce(initialMax_Lerped, steepness, frequency, elapsedTimeSinceMouseUp);
+            bendAngle = oscillatingBounce(initialMaxReal, steepness, frequency, elapsedTimeSinceMouseUp);
         }
         else
         {
-            bendAngle = initialMax_Lerped;
+            bendAngle = initialMaxReal;
         }
 
         // Update shader variables
         material.userData.shader.uniforms.twistAmount.value = twist;
         material.userData.shader.uniforms.helixRadius.value = radius;
-        material.userData.shader.uniforms.bendAxis.value = bendAxis_Lerped;
-        material.userData.shader.uniforms.bendOrigin.value = bendOrigin_Lerped;
-        material.userData.shader.uniforms.bendAngle.value = bendAngle;
+        material.userData.shader.uniforms.bendAngle.value = [bendAngle.x, bendAngle.y];
 
         shadowMaterial.userData.shader.uniforms.twistAmount.value = twist;
         shadowMaterial.userData.shader.uniforms.helixRadius.value = radius;
-        shadowMaterial.userData.shader.uniforms.bendAxis.value = bendAxis_Lerped;
-        shadowMaterial.userData.shader.uniforms.bendOrigin.value = bendOrigin_Lerped;
-        shadowMaterial.userData.shader.uniforms.bendAngle.value = bendAngle;
-
-        //model.rotation.y += 0.01 * deltaTime;
+        shadowMaterial.userData.shader.uniforms.bendAngle.value = [bendAngle.x, bendAngle.y];
     }
 
     renderer.render( scene, camera );
