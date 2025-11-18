@@ -178,11 +178,14 @@ async function loadShader(url)
 }
 
 // Materials
-const material = new THREE.MeshStandardMaterial(
+const material = new THREE.MeshPhysicalMaterial(
     {
-        color: 0xFFFFFF,
-        roughness: 0.5,
-        metalness: 0.1
+        color: new THREE.Vector3(0.0, 0.0, 0.0),
+        roughness: 0.35,
+        metalness: 0.0,
+        clearcoat: 0.0,
+        clearcoatRoughness: 0.0,
+        sheen: 0.0
     });
 
 loadShader('./threejs.glsl').then((glslCode) =>
@@ -190,16 +193,29 @@ loadShader('./threejs.glsl').then((glslCode) =>
         material.onBeforeCompile = (shader) =>
         {
             material.userData.shader = shader;
-        
+
             shader.uniforms.twistAmount = { value: 10 };
             shader.uniforms.helixRadius = { value: 1 };
             shader.uniforms.bendAngle = { value: new THREE.Vector2(0.0, 0.0) };
+
+            // Reuse existing material uniforms
+            shader.uniforms.baseColor = { value: new THREE.Vector3(material.color.r, material.color.g, material.color.b) };
+            shader.uniforms.roughness = { value: material.roughness };
+            shader.uniforms.metalness = { value: material.metalness };
+            shader.uniforms.clearcoat = { value: material.clearcoat };
+            shader.uniforms.clearcoatGloss = { value: material.clearcoatRoughness };
+            shader.uniforms.sheen = { value: material.sheen };
+            shader.uniforms.SSSStrength = { value: 0.2 };
+            shader.uniforms.SSSWidth = { value: 2.0 };
+            shader.uniforms.SSSColor = { value: new THREE.Vector3(0.66, 0.99, 0.52) };
         
-            shader.vertexShader =                 
+            shader.vertexShader =
                 `
                     uniform float twistAmount;
                     uniform float helixRadius;
-                    uniform vec2 bendAngle;\n
+                    uniform vec2 bendAngle;
+
+                    varying vec3 vWorldPosition;\n
                 ` +
                 glslCode +
                 shader.vertexShader.replace(
@@ -224,6 +240,68 @@ loadShader('./threejs.glsl').then((glslCode) =>
                             bendAngleSign.y * vec3(0, 0, -0.5),                   // BendOrigin
                             -bendAngle.y);
                     `);
+
+            shader.fragmentShader =
+                    `
+                        uniform vec3 baseColor;
+                        #ifndef USE_CLEARCOAT
+                            uniform float clearcoat;
+                        #endif //USE_CLEARCOAT
+                        uniform float clearcoatGloss;
+                        uniform float sheen;
+                        uniform float SSSStrength;
+                        uniform float SSSWidth;
+                        uniform vec3  SSSColor;
+
+                        varying vec3 vWorldPosition;\n
+                    ` +
+                    glslCode +
+                    shader.fragmentShader.replace(
+                        `#include <dithering_fragment>`,
+                        `
+                            // ----------------------------------
+                            // Directional Lighting
+                            vec3 N = normalize(normal);
+                            vec3 V = normalize(cameraPosition - vWorldPosition);
+                            vec3 L = normalize(directionalLights[0].direction);
+
+                            vec3 color = DisneyBRDF(
+                                N, V, L,
+                                baseColor,
+                                roughness,
+                                metalness,
+                                0.0,    // specularTint
+                                sheen, 0.5,    // sheenTint
+                                clearcoat, clearcoatGloss,
+                                SSSStrength, SSSWidth, SSSColor);
+
+                            // ----------------------------------
+                            // Ambient Lighting
+                            vec3 ambient = ambientLightColor * baseColor;
+                            
+                            color += ambient;
+                            
+                            // ----------------------------------
+                            // Hemispheric Lighting
+                            HemisphereLight hemi = hemisphereLights[0];
+                            
+                            float t = N.y * 0.5 + 0.5;
+                            
+                            // Irradiance (already includes intensity!)
+                            vec3 hemiLight = mix(hemi.groundColor, hemi.skyColor, t);
+
+                            // Lambert diffuse
+                            vec3 indirectDiffuse = hemiLight * baseColor * (1.0 / PI);
+
+                            color += indirectDiffuse;
+                            
+                            // ----------------------------------
+                            // Final color
+                            gl_FragColor = vec4(color, 1.0);
+
+                            #include <dithering_fragment>
+                        `
+                    )
         };
     });
 
@@ -327,7 +405,7 @@ dirLight.shadow.camera.bottom = -1;
 
 scene.add(dirLight);
 
-const ambientIntensity = 0.05;
+const ambientIntensity = 0.25;
 const ambientLight = new THREE.AmbientLight(color, ambientIntensity);
 scene.add(ambientLight);
 
