@@ -254,7 +254,7 @@ vec3 DisneyBRDF(
     float VoH = max(dot(V, H), 0.0);
 
     // Diffuse
-    vec3 diffuseBurley   = (1.0 - metallic) * DisneyDiffuse(NoL, LoH, NoV, albedo, roughness);
+    vec3 diffuseBurley = (1.0 - metallic) * DisneyDiffuse(NoL, LoH, NoV, albedo, roughness);
     vec3 diffuseSSS = SSSDiffuse(albedo, NoL, NoV, SSSWidth, SSSColor);
     float back = max(dot(-N, L), 1e-5);
     vec3 backLight = SSSColor * albedo * pow(back, 1.5) * 0.3 * SSSStrength;

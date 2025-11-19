@@ -180,12 +180,12 @@ async function loadShader(url)
 // Materials
 const material = new THREE.MeshPhysicalMaterial(
     {
-        color: new THREE.Vector3(0.0, 0.0, 0.0),
-        roughness: 0.35,
+        color: new THREE.Color(0.25, 0.7, 0.3),
+        roughness: 0.45,
         metalness: 0.0,
         clearcoat: 0.0,
         clearcoatRoughness: 0.0,
-        sheen: 0.0
+        sheen: 0.1
     });
 
 loadShader('./threejs.glsl').then((glslCode) =>
@@ -194,32 +194,28 @@ loadShader('./threejs.glsl').then((glslCode) =>
         {
             material.userData.shader = shader;
 
-            shader.uniforms.twistAmount = { value: 10 };
-            shader.uniforms.helixRadius = { value: 1 };
             shader.uniforms.bendAngle = { value: new THREE.Vector2(0.0, 0.0) };
 
             // Reuse existing material uniforms
-            shader.uniforms.baseColor = { value: new THREE.Vector3(material.color.r, material.color.g, material.color.b) };
+            shader.uniforms.baseColor = { value: new THREE.Color(material.color) };
             shader.uniforms.roughness = { value: material.roughness };
             shader.uniforms.metalness = { value: material.metalness };
             shader.uniforms.clearcoat = { value: material.clearcoat };
             shader.uniforms.clearcoatGloss = { value: material.clearcoatRoughness };
             shader.uniforms.sheen = { value: material.sheen };
-            shader.uniforms.SSSStrength = { value: 0.2 };
-            shader.uniforms.SSSWidth = { value: 2.0 };
-            shader.uniforms.SSSColor = { value: new THREE.Vector3(0.66, 0.99, 0.52) };
-        
+            shader.uniforms.SSSStrength = { value: 0.30 };
+            shader.uniforms.SSSWidth = { value: 0.6 };
+            shader.uniforms.SSSColor = { value: new THREE.Color(0.55, 1.0, 0.6) };
+
             shader.vertexShader =
                 `
-                    uniform float twistAmount;
-                    uniform float helixRadius;
                     uniform vec2 bendAngle;
 
                     varying vec3 vWorldPosition;\n
                 ` +
                 glslCode +
                 shader.vertexShader.replace(
-                    '#include <begin_vertex>',
+                    '#include <dithering_fragment>',
                     `
                         vec3 transformed = position;
 
@@ -243,7 +239,7 @@ loadShader('./threejs.glsl').then((glslCode) =>
 
             shader.fragmentShader =
                     `
-                        uniform vec3 baseColor;
+                        uniform vec3  baseColor;
                         #ifndef USE_CLEARCOAT
                             uniform float clearcoat;
                         #endif //USE_CLEARCOAT
@@ -252,56 +248,94 @@ loadShader('./threejs.glsl').then((glslCode) =>
                         uniform float SSSStrength;
                         uniform float SSSWidth;
                         uniform vec3  SSSColor;
-
+                            
                         varying vec3 vWorldPosition;\n
-                    ` +
+                    ` +     
                     glslCode +
                     shader.fragmentShader.replace(
                         `#include <dithering_fragment>`,
-                        `
-                            // ----------------------------------
-                            // Directional Lighting
+                        `   
+                            vec3 color;
                             vec3 N = normalize(normal);
                             vec3 V = normalize(cameraPosition - vWorldPosition);
-                            vec3 L = normalize(directionalLights[0].direction);
-
-                            vec3 color = DisneyBRDF(
-                                N, V, L,
-                                baseColor,
-                                roughness,
-                                metalness,
-                                0.0,    // specularTint
-                                sheen, 0.5,    // sheenTint
-                                clearcoat, clearcoatGloss,
-                                SSSStrength, SSSWidth, SSSColor);
-
+                             // ----------------------------------
+                            // Directional Lighting
+                            {
+                             #if NUM_DIR_LIGHTS > 0
+                                // A bit lazy but realistically there will only be one directional source
+                                vec3 L = normalize(directionalLights[0].direction);
+                                color = DisneyBRDF(
+                                    N, V, L,
+                                    baseColor,
+                                    roughness,
+                                    metalness,
+                                    0.0,    // specularTint
+                                    sheen, 0.5,    // sheenTint
+                                    clearcoat, clearcoatGloss,
+                                    SSSStrength, SSSWidth, SSSColor) * directionalLights[0].color;
+                            #endif //NUM_DIR_LIGHTS > 0
+                            }
+                            // ----------------------------------
+                            // Local Lights
+                            {
+                            #if NUM_POINT_LIGHTS > 0
+                                PointLight p;
+                                vec3 L;
+                                float distance;
+                                float attenuation;
+                                vec3 radiance;
+                                #pragma unroll
+                                for (int i = 0; i < NUM_POINT_LIGHTS; ++i)
+                                {
+                                    p = pointLights[i];
+                                    L = normalize(p.position - vWorldPosition);
+                                    distance = length(p.position - vWorldPosition);
+                                    attenuation = pow( clamp(1.0 - distance / p.distance, 0.0, 1.0), p.decay );
+                                    radiance = p.color * attenuation;
+                                    // Evaluate your Disney BRDF
+                                    color += DisneyBRDF(
+                                        N, V, L,
+                                        baseColor,
+                                        roughness,
+                                        metalness,
+                                        0.0,      // specularTint
+                                        sheen,
+                                        0.5,      // sheenTint
+                                        clearcoat,
+                                        clearcoatGloss,
+                                        SSSStrength,
+                                        SSSWidth,
+                                        SSSColor) * radiance;
+                                }
+                            #endif // NUM_POINT_LIGHTS > 0
+                            }
                             // ----------------------------------
                             // Ambient Lighting
                             vec3 ambient = ambientLightColor * baseColor;
-                            
-                            color += ambient;
-                            
+                           
+                            color += ambient * 0.0;
+                           
                             // ----------------------------------
                             // Hemispheric Lighting
                             HemisphereLight hemi = hemisphereLights[0];
-                            
-                            float t = N.y * 0.5 + 0.5;
-                            
+                           
+                            float t = dot(N, vec3(0,1,0)) * 0.5 + 0.5;
+                           
                             // Irradiance (already includes intensity!)
                             vec3 hemiLight = mix(hemi.groundColor, hemi.skyColor, t);
-
+                           
                             // Lambert diffuse
                             vec3 indirectDiffuse = hemiLight * baseColor * (1.0 / PI);
+                           
+                            float hemiStrength = 0.0; // Arbetrary
+                            color += indirectDiffuse * hemiStrength;
 
-                            color += indirectDiffuse;
-                            
                             // ----------------------------------
                             // Final color
                             gl_FragColor = vec4(color, 1.0);
-
+  
                             #include <dithering_fragment>
-                        `
-                    )
+                        `);
         };
     });
 
@@ -316,14 +350,10 @@ loadShader('./threejs.glsl').then((glslCode) =>
         {
             shadowMaterial.userData.shader = shader;
         
-            shader.uniforms.twistAmount = { value: 10 };
-            shader.uniforms.helixRadius = { value: 1 };
             shader.uniforms.bendAngle = { value: new THREE.Vector2(0.0, 0.0) };
         
             shader.vertexShader = 
                 `
-                    uniform float twistAmount;
-                    uniform float helixRadius;
                     uniform vec2 bendAngle;\n
                 ` +
                 glslCode +
@@ -389,7 +419,7 @@ resizeRendererAndUpdateAspect(renderer, camera);
 
 // Lighting
 const color = 0xFFFFFF;
-const dirIntensity = 1;
+const dirIntensity = 2.0;
 var dirLight = new THREE.DirectionalLight(color, dirIntensity);
 dirLight.position.set(1, 1, 1);
 
@@ -405,7 +435,7 @@ dirLight.shadow.camera.bottom = -1;
 
 scene.add(dirLight);
 
-const ambientIntensity = 0.25;
+const ambientIntensity = 0.10;
 const ambientLight = new THREE.AmbientLight(color, ambientIntensity);
 scene.add(ambientLight);
 
@@ -414,6 +444,15 @@ const skyColor = 0xB1E1FF;  // light blue
 const groundColor = 0xB97A20;  // brownish orange
 const hemisphereLight = new THREE.HemisphereLight(skyColor, groundColor, hemisphereIntensity);
 scene.add(hemisphereLight);
+
+const pointLight = new THREE.PointLight(color, 15.0, 5.0);
+
+const pointLights = [
+    new THREE.PointLight(0xff0000, 15.0, 4.0),
+    new THREE.PointLight(0x00ff00, 10.0, 6.0),
+    new THREE.PointLight(0x0000ff, 20.0, 5.0)
+];
+pointLights.forEach(light => scene.add(light));
 
 // ----------------------------------------
 // Input
@@ -442,7 +481,7 @@ renderer.domElement.addEventListener('mousedown', e =>
     });
 
 // Drag
-renderer.domElement.addEventListener('mousemove', e => 
+renderer.domElement.addEventListener('mousemove', e =>
     {
         if (!canDrag)
         {
@@ -575,13 +614,16 @@ function animate(now)
         }
 
         // Update shader variables
-        material.userData.shader.uniforms.twistAmount.value = twist;
-        material.userData.shader.uniforms.helixRadius.value = radius;
         material.userData.shader.uniforms.bendAngle.value = [bendAngle.x, bendAngle.y];
-
-        shadowMaterial.userData.shader.uniforms.twistAmount.value = twist;
-        shadowMaterial.userData.shader.uniforms.helixRadius.value = radius;
         shadowMaterial.userData.shader.uniforms.bendAngle.value = [bendAngle.x, bendAngle.y];
+
+        // Update light parameters
+        const orbitDist = 3.0;
+        pointLights.forEach((light, index)  =>
+           {
+                light.position.x = orbitDist * Math.sin(elapsedTime * (index + 1));
+                light.position.y = orbitDist * Math.cos(elapsedTime * (index + 1));
+           });
     }
 
     renderer.render( scene, camera );
