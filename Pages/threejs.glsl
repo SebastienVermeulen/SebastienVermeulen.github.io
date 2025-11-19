@@ -270,5 +270,21 @@ vec3 DisneyBRDF(
     return diffuse + specular + clearc + sheeny;
 }
 
+//
+// Fast skycolor function by Íñigo Quílez
+// https://www.shadertoy.com/view/MdX3Rr
+//
+vec3 GetSkyColor(vec3 rd, vec3 sunDir)
+{
+    float sundot = clamp(dot(rd, sunDir), 0.0, 1.0);
+	vec3 col = vec3(0.2, 0.5, 0.85) * 1.1 - max(rd.y, 0.01) * max(rd.y, 0.01) * 0.5;
+    col = mix( col, 0.85 * vec3(0.7, 0.75, 0.85), pow(1.0 - max(rd.y, 0.0), 6.0) );
 
-
+    col += 0.25 * vec3(1.0, 0.7, 0.4) * pow( sundot, 5.0 );
+    col += 0.25 * vec3(1.0, 0.8, 0.6) * pow( sundot, 64.0 );
+    col += 0.20 * vec3(1.0, 0.8, 0.6) * pow( sundot, 512.0 );
+    
+    col += clamp((0.1 - rd.y) * 10.0, 0.0, 1.0) * vec3(0.0, 0.1, 0.2);
+    col += 0.2 * vec3(1.0, 0.8, 0.6) * pow( sundot, 8.0 );
+    return col;
+}

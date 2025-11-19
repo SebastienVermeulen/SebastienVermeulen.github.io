@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js'; // For stat tracking, like FPS
+import { parameter } from 'three/tsl';
+import { Scene } from 'three/webgpu';
 
 // ----------------------------------------
 // Helpers
@@ -163,9 +165,26 @@ const div = document.getElementsByClassName("three-example-1")[0];
 const windowSlot1 = div.childNodes[1];
 windowSlot1.appendChild(renderer.domElement);
 
+const renderTarget = new THREE.WebGLRenderTarget(renderer.domElement.width, renderer.domElement.height);
+
 // Create scene
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 1000 );
+const orthoCamera = new THREE.OrthographicCamera( -1.0, 1.0, 1.0, -1.0, -1.0, 1.0 );
+
+// ----------------------------------------
+// Fullscreen pass setup
+// ----------------------------------------
+
+// Fullscreen scene
+const prePassScene = new THREE.Scene();
+
+// Simple fullscreen material
+const prePassMaterial = new THREE.ShaderMaterial();
+
+// Fullscreen quad
+const fsQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), prePassMaterial);
+prePassScene.add(fsQuad);
 
 // ----------------------------------------
 //  Materials setup
@@ -187,9 +206,69 @@ const material = new THREE.MeshPhysicalMaterial(
         clearcoatRoughness: 0.0,
         sheen: 0.1
     });
+material.depthTest = true;
+material.depthWrite = true;
+material.transparent = false;
+
+// Keep overal needs simple
+const shadowMaterial = new THREE.MeshDepthMaterial({
+    depthPacking: THREE.RGBADepthPacking,
+});
+
+let shadersCanCompile = false;
 
 loadShader('./threejs.glsl').then((glslCode) =>
     {
+        prePassMaterial.onBeforeCompile = (shader) =>
+        {
+            prePassMaterial.userData.shader = shader;
+
+            shader.uniforms.cameraMatrixWorld = { value: new THREE.Matrix4() };
+            shader.uniforms.cameraProjectionInverse = { value: new THREE.Matrix4() };
+            shader.uniforms.sunDirection = { value: new THREE.Vector3() };
+
+            shader.vertexShader =
+            `
+                varying vec2 vUv;
+        
+                void main() 
+                {
+                    vUv = position.xy * 0.5 + 0.5; // convert [-1,1] -> [0,1]
+                    gl_Position = vec4(position.xy, 0.0, 1.0);
+                }
+            `,
+            shader.fragmentShader =
+            glslCode + 
+            `
+                uniform mat4 cameraMatrixWorld;
+                uniform mat4 cameraProjectionInverse;
+                uniform vec3 sunDirection;
+
+                varying vec2 vUv;
+        
+                void main()
+                {
+                    // Convert UV to NDC space [-1, 1]
+                    vec4 ndc = vec4(vUv * 2.0 - 1.0, -1.0, 1.0);
+        
+                    // Convert to view space
+                    vec4 viewPos = cameraProjectionInverse * ndc;
+                    viewPos /= viewPos.w;
+        
+                    // Convert to world space
+                    vec3 worldPos = (cameraMatrixWorld * viewPos).xyz;
+        
+                    // Compute view direction
+                    vec3 viewDir = normalize(worldPos - cameraMatrixWorld[3].xyz);
+        
+                    vec3 skyColor = GetSkyColor(viewDir, sunDirection);
+        
+                    // Simple coloring: encode direction as RGB
+                    gl_FragColor = vec4(skyColor, 1.0);
+                }
+            `
+        };
+
         material.onBeforeCompile = (shader) =>
         {
             material.userData.shader = shader;
@@ -258,7 +337,8 @@ loadShader('./threejs.glsl').then((glslCode) =>
                             vec3 color;
                             vec3 N = normalize(normal);
                             vec3 V = normalize(cameraPosition - vWorldPosition);
-                             // ----------------------------------
+
+                            // ----------------------------------
                             // Directional Lighting
                             {
                              #if NUM_DIR_LIGHTS > 0
@@ -337,15 +417,7 @@ loadShader('./threejs.glsl').then((glslCode) =>
                             #include <dithering_fragment>
                         `);
         };
-    });
 
-// Keep overal needs simple
-const shadowMaterial = new THREE.MeshDepthMaterial({
-    depthPacking: THREE.RGBADepthPacking,
-});
-
-loadShader('./threejs.glsl').then((glslCode) =>
-    {
         shadowMaterial.onBeforeCompile = (shader) =>
         {
             shadowMaterial.userData.shader = shader;
@@ -380,12 +452,17 @@ loadShader('./threejs.glsl').then((glslCode) =>
                             -bendAngle.y);
                     `);
         };
+
+        prePassMaterial.needsUpdate = true;
+        material.needsUpdate = true;
+        shadowMaterial.needsUpdate = true;
+
+        shadersCanCompile = true;
     });
 
 function checkMaterialCompilation()
 {
-    // TODO: Add these to an array
-    return material.userData?.shader && shadowMaterial.userData?.shader;
+    return material.userData?.shader && shadowMaterial.userData?.shader && prePassMaterial.userData?.shader;
 }
 
 // ----------------------------------------
@@ -412,7 +489,7 @@ undefined, function ( error )
 });
 
 // Camera
-camera.position.y = 0.3;
+camera.position.y = 0.5;
 camera.position.z = 1.5;
 
 resizeRendererAndUpdateAspect(renderer, camera);
@@ -570,6 +647,7 @@ function lerpToTarget(deltaTime)
 // ----------------------------------------
 //  Animation, logic, & etc.
 // ----------------------------------------
+
 // Animation etc.
 function animate(now)
 {
@@ -595,7 +673,7 @@ function animate(now)
     const elapsedTimeSinceMouseDown = elapsedTime - pressTime;  // seconds since clock started
     const deltaTime = delta / 1000.0;                           // seconds since last frame
 
-    if (model && checkMaterialCompilation())
+    if (model && fsQuad && checkMaterialCompilation())
     {
         // Calculate the bounce and twist
         const twist = 0;
@@ -613,6 +691,11 @@ function animate(now)
             bendAngle = initialMaxReal;
         }
 
+        // Update "prePass" shader variables
+        prePassMaterial.userData.shader.uniforms.cameraMatrixWorld.value.copy(camera.matrixWorld);
+        prePassMaterial.userData.shader.uniforms.cameraProjectionInverse.value.copy(camera.projectionMatrixInverse);
+        prePassMaterial.userData.shader.uniforms.sunDirection.value.copy(dirLight.position);
+
         // Update shader variables
         material.userData.shader.uniforms.bendAngle.value = [bendAngle.x, bendAngle.y];
         shadowMaterial.userData.shader.uniforms.bendAngle.value = [bendAngle.x, bendAngle.y];
@@ -626,8 +709,23 @@ function animate(now)
            });
     }
 
-    renderer.render( scene, camera );
-
+    if (shadersCanCompile)
+    {
+        // Render
+        renderer.setRenderTarget(renderTarget);
+        
+        // Render the sky
+        renderer.render(prePassScene, orthoCamera);
+        
+        // Back to default framebuffer
+        renderer.setRenderTarget(null);
+        // Use renderTarget.texture as a background
+        scene.background = renderTarget.texture;
+        
+        // Render the model
+        renderer.render(scene, camera);
+    }
+        
     stats.end();
 }
 
