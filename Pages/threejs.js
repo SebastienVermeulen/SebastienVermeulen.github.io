@@ -546,7 +546,7 @@ let pressTime = 0.0;
 let deltaMouse = new THREE.Vector2(0, 0);
 
 // Grab
-renderer.domElement.addEventListener('mousedown', e =>
+renderer.domElement.addEventListener('pointerdown', e =>
     {
         canDrag = true;
         previousMouseStart.x = e.clientX;
@@ -555,10 +555,13 @@ renderer.domElement.addEventListener('mousedown', e =>
 
         initialMaxTarget = oscillatingBounce(initialMaxReal, steepness, frequency, pressTime - releaseTime);
         initialMaxReal = initialMaxTarget;
+
+        // Capture the pointer
+        renderer.domElement.setPointerCapture(e.pointerId);
     });
 
 // Drag
-renderer.domElement.addEventListener('mousemove', e =>
+renderer.domElement.addEventListener('pointermove', e =>
     {
         if (!canDrag)
         {
@@ -573,7 +576,7 @@ renderer.domElement.addEventListener('mousemove', e =>
     });
 
 // Release
-window.addEventListener('mouseup', e =>
+renderer.domElement.addEventListener('pointerup', e =>
     {
         previousMouseEnd.x = e.clientX;
         previousMouseEnd.y = e.clientY;
@@ -590,6 +593,9 @@ window.addEventListener('mouseup', e =>
 
         isDragging = false;
         canDrag = false;
+
+        // Release the pointer
+        renderer.domElement.releasePointerCapture(e.pointerId);
     });
     
 // ----------------------------------------
