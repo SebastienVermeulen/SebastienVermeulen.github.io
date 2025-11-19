@@ -215,7 +215,7 @@ loadShader('./threejs.glsl').then((glslCode) =>
                 ` +
                 glslCode +
                 shader.vertexShader.replace(
-                    '#include <dithering_fragment>',
+                    '#include <begin_vertex>',
                     `
                         vec3 transformed = position;
 
