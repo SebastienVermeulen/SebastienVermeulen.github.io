@@ -97,21 +97,27 @@
             <div>
                 <h2>Implementation details</h2>
                 <p>
-                    This project was a short one to learn and use Three.js, and WebGL.
-                    It is a simple testbed and example Javascript and GLSL to show of the Disney BRDF.
+                    This was a short project aimed at learning and experimenting with Three.js and WebGL.
+                    It serves as a simple testbed, showcasing example JavaScript and GLSL code to demonstrate
+                    the Disney BRDF.
                     <br><br>
-                    The material implements the regular metalic and roughness PBR workflows of course, but also: Sheen, Clearcoats, and simple SubSurfaceScattering.
+                    The material supports the standard metallic and roughness PBR workflows, but also includes Sheen,
+                    Clearcoat, and simple Subsurface Scattering.
                     <br><br>
-                    To make it slightly more interesting I've added some some orbeting point lights in: red, green, and blue.
-                    As well as an ambient light, hemisphere light, and directional light. This should give a clear and
-                    readable sense of what the BRDF is capable of.
+                    To make the scene a bit more visually engaging, I added orbiting point lights in red, green,
+                    and blue, along with an ambient light, a hemisphere light, and a directional light.
+                    This combination helps clearly illustrate what the BRDF is capable of.
                     <br><br>
-                    As you can see the model transitions through five different parameter sets:
+                    The model transitions through five different parameter sets:
+                    <br>&emsp; - Jade
+                    <br>&emsp; - Shiny Copper
+                    <br>&emsp; - Pink Cloth
+                    <br>&emsp; - Pottery with a Clearcoat
+                    <br>&emsp; - Matte Gold
                     <br><br>
-                    &emsp;&emsp;&emsp; Jade, Shiny Copper, Pink Cloth, Pottery with a clearcoat, and Matte Gold.
-                    <br><br>
-                    Besides this the bending/deformation is done in the vertex shader to keep the performance smooth overall.
-                </p>
+                    Additionally, bending and deformation are handled in the vertex shader to maintain
+                    smooth performance throughout.
+               </p>
             </div>
         </div>
     </section>

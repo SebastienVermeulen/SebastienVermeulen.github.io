@@ -4,6 +4,8 @@ import Stats from 'three/examples/jsm/libs/stats.module.js'; // For stat trackin
 import { parameter } from 'three/tsl';
 import { Scene } from 'three/webgpu';
 
+const enableStats = false;
+
 // ----------------------------------------
 // Helpers
 // ----------------------------------------
@@ -154,8 +156,11 @@ const modelLoader = new OBJLoader();
 const clock = new THREE.Clock();
 
 // Stats
-const stats = new Stats();
-document.body.appendChild(stats.dom);
+if (enableStats)
+{
+    const stats = new Stats();
+    document.body.appendChild(stats.dom);
+}
 
 // Setup renderer
 const renderer = new THREE.WebGLRenderer({antialias: true});
@@ -785,7 +790,10 @@ function animate(now)
     // ----------------------------------------
     // Render logic
     // ----------------------------------------
-    stats.begin();
+    if (enableStats)
+    { 
+        stats.begin();
+    }
     
     const elapsedTime = clock.getElapsedTime();                 // seconds since clock started
     const elapsedTimeSinceMouseUp = elapsedTime - releaseTime;  // seconds since clock started
@@ -847,8 +855,11 @@ function animate(now)
         // Render the model
         renderer.render(scene, camera);
     }
-        
-    stats.end();
+
+    if (enableStats)
+    {
+        stats.end();
+    }
 }
 
 // Launch the main renderloop
