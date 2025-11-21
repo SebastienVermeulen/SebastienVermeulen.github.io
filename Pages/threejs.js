@@ -197,15 +197,7 @@ async function loadShader(url)
 }
 
 // Materials
-const material = new THREE.MeshPhysicalMaterial(
-    {
-        color: new THREE.Color(0.25, 0.7, 0.3),
-        roughness: 0.45,
-        metalness: 0.0,
-        clearcoat: 0.0,
-        clearcoatRoughness: 0.0,
-        sheen: 0.1
-    });
+const material = new THREE.MeshPhysicalMaterial();
 material.depthTest = true;
 material.depthWrite = true;
 material.transparent = false;
@@ -217,6 +209,87 @@ const shadowMaterial = new THREE.MeshDepthMaterial({
 
 let shadersCanCompile = false;
 
+// --------------
+// Parameters
+// --------------
+// Try and keep the arrays consistent
+const BRDFParams =
+{
+    baseColor: new Float32Array([
+        0.05, 0.7, 0.15,            // Jade
+        0.926, 0.621, 0.504,        // Copper
+        0.9, 0.45, 0.55,            // Pink fabric
+        0.8, 0.2, 0.1,            // Red clearcoat
+        1.0, 0.85, 0.4]),            // Matte gold
+    roughness: new Float32Array([
+        0.15,
+        0.3,
+        0.6,
+        0.1,
+        0.6]),
+    metallic: new Float32Array([
+        0,
+        1.0,
+        0.0,
+        0.0,
+        1.0]),
+    specularTint: new Float32Array([
+        0,
+        0.5,
+        0,
+        0,
+        0.5]),
+    sheen: new Float32Array([
+        0.5,
+        0,
+        1.0,
+        0.0,
+        0.0]),
+    sheenTint: new Float32Array([
+        0,
+        0,
+        0.8,
+        0,
+        0]),
+    clearcoat: new Float32Array([
+        0,
+        0,
+        0,
+        1,
+        0]),
+    clearcoatGloss: new Float32Array([
+        0,
+        0,
+        0,
+        0.9,
+        0]),
+    SSSStrength: new Float32Array([
+        3.0,
+        0,
+        0,
+        0,
+        0]),
+    SSSWidth: new Float32Array([
+        0.9,
+        0,
+        0,
+        0,
+        0]),
+    SSSColor: new Float32Array([
+        0.7, 0.8, 0.1,
+        0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0]),
+};
+let BRDFParamsNumber = 5;
+
+// For reference look in shader, it just transitions through all the BRDFParams based on the time, and fmod
+let materialTransitionCounter = 0.0;
+
+// --------------
+// Compilation
+// --------------
 loadShader('./threejs.glsl').then((glslCode) =>
     {
         prePassMaterial.onBeforeCompile = (shader) =>
@@ -275,22 +348,26 @@ loadShader('./threejs.glsl').then((glslCode) =>
 
             shader.uniforms.bendAngle = { value: new THREE.Vector2(0.0, 0.0) };
 
-            // Reuse existing material uniforms
-            shader.uniforms.baseColor = { value: new THREE.Color(material.color) };
-            shader.uniforms.roughness = { value: material.roughness };
-            shader.uniforms.metalness = { value: material.metalness };
-            shader.uniforms.clearcoat = { value: material.clearcoat };
-            shader.uniforms.clearcoatGloss = { value: material.clearcoatRoughness };
-            shader.uniforms.sheen = { value: material.sheen };
-            shader.uniforms.SSSStrength = { value: 0.30 };
-            shader.uniforms.SSSWidth = { value: 0.6 };
-            shader.uniforms.SSSColor = { value: new THREE.Color(0.55, 1.0, 0.6) };
+            // BRDF Parameters
+            shader.uniforms.g_baseColor = { value: BRDFParams.baseColor };
+            shader.uniforms.g_roughness = { value: BRDFParams.roughness };
+            shader.uniforms.g_metallic = { value: BRDFParams.metallic };
+            shader.uniforms.g_specularTint = { value: BRDFParams.specularTint };
+            shader.uniforms.g_sheen = { value: BRDFParams.sheen };
+            shader.uniforms.g_clearcoat = { value: BRDFParams.clearcoat };
+            shader.uniforms.g_clearcoatGloss = { value: BRDFParams.clearcoatGloss };
+            shader.uniforms.g_SSSStrength = { value: BRDFParams.SSSStrength };
+            shader.uniforms.g_SSSWidth = { value: BRDFParams.SSSWidth };
+            shader.uniforms.g_SSSColor = { value: BRDFParams.SSSColor };
+
+            shader.uniforms.materialTransitionCounter = { value: materialTransitionCounter };
 
             shader.vertexShader =
                 `
                     uniform vec2 bendAngle;
 
-                    varying vec3 vWorldPosition;\n
+                    varying vec3 vWorldPosition;
+                    varying vec2 vScreenUV;\n
                 ` +
                 glslCode +
                 shader.vertexShader.replace(
@@ -314,29 +391,45 @@ loadShader('./threejs.glsl').then((glslCode) =>
                             vec3(1, 0, 0),                                     // BendAxis
                             bendAngleSign.y * vec3(0, 0, -0.5),                   // BendOrigin
                             -bendAngle.y);
-                    `);
+                    `).replace(
+                        '#include <project_vertex>',
+                        `
+                            #include <project_vertex>
+                            vScreenUV = gl_Position.xy / gl_Position.w * 0.5 + 0.5;
+                        `
+                    );
 
             shader.fragmentShader =
                     `
-                        uniform vec3  baseColor;
-                        #ifndef USE_CLEARCOAT
-                            uniform float clearcoat;
-                        #endif //USE_CLEARCOAT
-                        uniform float clearcoatGloss;
-                        uniform float sheen;
-                        uniform float SSSStrength;
-                        uniform float SSSWidth;
-                        uniform vec3  SSSColor;
-                            
-                        varying vec3 vWorldPosition;\n
-                    ` +     
+                        #define FRAGMENT
+                        #define BRDF_STRUCTS ${BRDFParamsNumber}
+
+                        uniform float materialTransitionCounter;
+
+                        varying vec3 vWorldPosition;
+                        varying vec2 vScreenUV;\n
+                    ` +
                     glslCode +
                     shader.fragmentShader.replace(
                         `#include <dithering_fragment>`,
-                        `   
+                        `
                             vec3 color;
                             vec3 N = normalize(normal);
                             vec3 V = normalize(cameraPosition - vWorldPosition);
+
+                            int lowID = int(floor(materialTransitionCounter)) % BRDF_STRUCTS;
+                            int highID = int(ceil(materialTransitionCounter)) % BRDF_STRUCTS;
+
+                            BRDFParams BRDFParam;
+                            // Terniary not available for structs in webgl 1.0
+                            if (fract(materialTransitionCounter) < vScreenUV.x * (1.0 - vScreenUV.y))
+                            {
+                                BRDFParam = getBRDFParams(lowID);
+                            }
+                            else
+                            {
+                                BRDFParam = getBRDFParams(highID);
+                            }
 
                             // ----------------------------------
                             // Directional Lighting
@@ -346,13 +439,17 @@ loadShader('./threejs.glsl').then((glslCode) =>
                                 vec3 L = normalize(directionalLights[0].direction);
                                 color = DisneyBRDF(
                                     N, V, L,
-                                    baseColor,
-                                    roughness,
-                                    metalness,
-                                    0.0,    // specularTint
-                                    sheen, 0.5,    // sheenTint
-                                    clearcoat, clearcoatGloss,
-                                    SSSStrength, SSSWidth, SSSColor) * directionalLights[0].color;
+                                    BRDFParam.baseColor,
+                                    BRDFParam.roughness,
+                                    BRDFParam.metallic,
+                                    BRDFParam.specularTint,
+                                    BRDFParam.sheen,
+                                    BRDFParam.sheenTint,
+                                    BRDFParam.clearcoat,
+                                    BRDFParam.clearcoatGloss,
+                                    BRDFParam.SSSStrength,
+                                    BRDFParam.SSSWidth, 
+                                    BRDFParam.SSSColor) * directionalLights[0].color;
                             #endif //NUM_DIR_LIGHTS > 0
                             }
                             // ----------------------------------
@@ -364,7 +461,7 @@ loadShader('./threejs.glsl').then((glslCode) =>
                                 float distance;
                                 float attenuation;
                                 vec3 radiance;
-                                #pragma unroll
+                                // Should unroll
                                 for (int i = 0; i < NUM_POINT_LIGHTS; ++i)
                                 {
                                     p = pointLights[i];
@@ -375,23 +472,23 @@ loadShader('./threejs.glsl').then((glslCode) =>
                                     // Evaluate your Disney BRDF
                                     color += DisneyBRDF(
                                         N, V, L,
-                                        baseColor,
-                                        roughness,
-                                        metalness,
-                                        0.0,      // specularTint
-                                        sheen,
-                                        0.5,      // sheenTint
-                                        clearcoat,
-                                        clearcoatGloss,
-                                        SSSStrength,
-                                        SSSWidth,
-                                        SSSColor) * radiance;
+                                        BRDFParam.baseColor,
+                                        BRDFParam.roughness,
+                                        BRDFParam.metallic,
+                                        BRDFParam.specularTint,
+                                        BRDFParam.sheen,
+                                        BRDFParam.sheenTint,
+                                        BRDFParam.clearcoat,
+                                        BRDFParam.clearcoatGloss,
+                                        BRDFParam.SSSStrength,
+                                        BRDFParam.SSSWidth, 
+                                        BRDFParam.SSSColor) * radiance;
                                 }
                             #endif // NUM_POINT_LIGHTS > 0
                             }
                             // ----------------------------------
                             // Ambient Lighting
-                            vec3 ambient = ambientLightColor * baseColor;
+                            vec3 ambient = ambientLightColor * BRDFParam.baseColor;
                            
                             color += ambient * 0.0;
                            
@@ -405,15 +502,15 @@ loadShader('./threejs.glsl').then((glslCode) =>
                             vec3 hemiLight = mix(hemi.groundColor, hemi.skyColor, t);
                            
                             // Lambert diffuse
-                            vec3 indirectDiffuse = hemiLight * baseColor * (1.0 / PI);
-                           
-                            float hemiStrength = 0.0; // Arbetrary
-                            color += indirectDiffuse * hemiStrength;
+                            vec3 indirectDiffuse = hemiLight * BRDFParam.baseColor * (1.0 / PI);
+
+                            color += indirectDiffuse;
 
                             // ----------------------------------
                             // Final color
+                            color = Linear2sRGB(color);
                             gl_FragColor = vec4(color, 1.0);
-  
+
                             #include <dithering_fragment>
                         `);
         };
@@ -496,7 +593,7 @@ resizeRendererAndUpdateAspect(renderer, camera);
 
 // Lighting
 const color = 0xFFFFFF;
-const dirIntensity = 2.0;
+const dirIntensity = 1.0;
 var dirLight = new THREE.DirectionalLight(color, dirIntensity);
 dirLight.position.set(1, 1, 1);
 
@@ -512,11 +609,11 @@ dirLight.shadow.camera.bottom = -1;
 
 scene.add(dirLight);
 
-const ambientIntensity = 0.10;
+const ambientIntensity = 0.05;
 const ambientLight = new THREE.AmbientLight(color, ambientIntensity);
 scene.add(ambientLight);
 
-const hemisphereIntensity = 0.25;
+const hemisphereIntensity = 0.2;
 const skyColor = 0xB1E1FF;  // light blue
 const groundColor = 0xB97A20;  // brownish orange
 const hemisphereLight = new THREE.HemisphereLight(skyColor, groundColor, hemisphereIntensity);
@@ -525,9 +622,9 @@ scene.add(hemisphereLight);
 const pointLight = new THREE.PointLight(color, 15.0, 5.0);
 
 const pointLights = [
-    new THREE.PointLight(0xff0000, 15.0, 4.0),
-    new THREE.PointLight(0x00ff00, 10.0, 6.0),
-    new THREE.PointLight(0x0000ff, 20.0, 5.0)
+    new THREE.PointLight(0xff0000, 1.0, 6.0),
+    new THREE.PointLight(0x00ff00, 1.0, 6.0),
+    new THREE.PointLight(0x0000ff, 1.0, 6.0)
 ];
 pointLights.forEach(light => scene.add(light));
 
@@ -679,6 +776,8 @@ function animate(now)
     const elapsedTimeSinceMouseDown = elapsedTime - pressTime;  // seconds since clock started
     const deltaTime = delta / 1000.0;                           // seconds since last frame
 
+    materialTransitionCounter = 0.3 * elapsedTime;
+
     if (model && fsQuad && checkMaterialCompilation())
     {
         // Calculate the bounce and twist
@@ -704,10 +803,11 @@ function animate(now)
 
         // Update shader variables
         material.userData.shader.uniforms.bendAngle.value = [bendAngle.x, bendAngle.y];
+        material.userData.shader.uniforms.materialTransitionCounter.value = materialTransitionCounter;
         shadowMaterial.userData.shader.uniforms.bendAngle.value = [bendAngle.x, bendAngle.y];
 
         // Update light parameters
-        const orbitDist = 3.0;
+        const orbitDist = 5.0;
         pointLights.forEach((light, index)  =>
            {
                 light.position.x = orbitDist * Math.sin(elapsedTime * (index + 1));

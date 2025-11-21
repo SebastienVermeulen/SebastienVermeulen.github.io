@@ -270,6 +270,54 @@ vec3 DisneyBRDF(
     return diffuse + specular + clearc + sheeny;
 }
 
+struct BRDFParams
+{
+    vec3 baseColor;
+    float roughness;
+    float metallic;
+    float specularTint;
+    float sheen;
+    float sheenTint;
+    float clearcoat;
+    float clearcoatGloss;
+    float SSSStrength;
+    float SSSWidth;
+    vec3 SSSColor;
+};
+
+#if defined(FRAGMENT) && defined(BRDF_STRUCTS)
+// Sadly the WebGL1 API doesn't allow us to push directly a struct array as for example a buffer.
+// Instead we define all the params as separate variables and then combine them via a util function.
+uniform vec3 g_baseColor[BRDF_STRUCTS];
+uniform float g_roughness[BRDF_STRUCTS];
+uniform float g_metallic[BRDF_STRUCTS];
+uniform float g_specularTint[BRDF_STRUCTS];
+uniform float g_sheen[BRDF_STRUCTS];
+uniform float g_sheenTint[BRDF_STRUCTS];
+uniform float g_clearcoat[BRDF_STRUCTS];
+uniform float g_clearcoatGloss[BRDF_STRUCTS];
+uniform float g_SSSStrength[BRDF_STRUCTS];
+uniform float g_SSSWidth[BRDF_STRUCTS];
+uniform vec3 g_SSSColor[BRDF_STRUCTS];
+
+BRDFParams getBRDFParams(int id)
+{
+    BRDFParams p;
+    p.baseColor = g_baseColor[id];
+    p.roughness = g_roughness[id];
+    p.metallic = g_metallic[id];
+    p.specularTint = g_specularTint[id];
+    p.sheen = g_sheen[id];
+    p.sheenTint = g_sheenTint[id];
+    p.clearcoat  = g_clearcoat[id];
+    p.clearcoatGloss = g_clearcoatGloss[id];
+    p.SSSStrength = g_SSSStrength[id];
+    p.SSSWidth = g_SSSWidth[id];
+    p.SSSColor = g_SSSColor[id];
+    return p;
+}
+#endif //FRAGMENT && BRDF_STRUCTS
+
 //
 // Fast skycolor function by Íñigo Quílez
 // https://www.shadertoy.com/view/MdX3Rr
@@ -287,4 +335,10 @@ vec3 GetSkyColor(vec3 rd, vec3 sunDir)
     col += clamp((0.1 - rd.y) * 10.0, 0.0, 1.0) * vec3(0.0, 0.1, 0.2);
     col += 0.2 * vec3(1.0, 0.8, 0.6) * pow( sundot, 8.0 );
     return col;
+}
+
+// Gamma correction
+vec3 Linear2sRGB(vec3 linear)
+{
+    return pow(linear, vec3(1.0 / 2.2));
 }
