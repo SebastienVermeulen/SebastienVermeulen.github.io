@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js'; // For stat tracking, like FPS
-import { parameter } from 'three/tsl';
 import { Scene } from 'three/webgpu';
 
 const enableStats = false;
