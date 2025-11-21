@@ -80,7 +80,11 @@
     <section class="main-section">
         <div class="title">
             <h1>three.js</h1>
-            <p>lorem ipsum</p>
+            <p>
+                An example of an interactive Three.js implementation.
+                <br><br>
+                By dragging the across the window you can bend the dragon, try it out.
+            </p>
         </div>
 
         <div class="three-example-1">
@@ -91,11 +95,22 @@
 
         <div class="framework">
             <div>
-                <h2>lorem ipsum</h2>
+                <h2>Implementation details</h2>
                 <p>
-                    lorem ipsum
+                    This project was a short one to learn and use Three.js, and WebGL.
+                    It is a simple testbed and example Javascript and GLSL to show of the Disney BRDF.
                     <br><br>
-                    lorem ipsum
+                    The material implements the regular metalic and roughness PBR workflows of course, but also: Sheen, Clearcoats, and simple SubSurfaceScattering.
+                    <br><br>
+                    To make it slightly more interesting I've added some some orbeting point lights in: red, green, and blue.
+                    As well as an ambient light, hemisphere light, and directional light. This should give a clear and
+                    readable sense of what the BRDF is capable of.
+                    <br><br>
+                    As you can see the model transitions through five different parameter sets:
+                    <br><br>
+                    &emsp;&emsp;&emsp; Jade, Shiny Copper, Pink Cloth, Pottery with a clearcoat, and Matte Gold.
+                    <br><br>
+                    Besides this the bending/deformation is done in the vertex shader to keep the performance smooth overall.
                 </p>
             </div>
         </div>

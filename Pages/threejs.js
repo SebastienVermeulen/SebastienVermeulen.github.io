@@ -486,25 +486,32 @@ loadShader('./threejs.glsl').then((glslCode) =>
                                 }
                             #endif // NUM_POINT_LIGHTS > 0
                             }
+
                             // ----------------------------------
                             // Ambient Lighting
-                            vec3 ambient = ambientLightColor * BRDFParam.baseColor;
-                           
-                            color += ambient * 0.0;
-                           
+                            {
+                                vec3 ambient = ambientLightColor * BRDFParam.baseColor;
+                            
+                                color += ambient * 0.0;
+                            }
+                                
                             // ----------------------------------
                             // Hemispheric Lighting
-                            HemisphereLight hemi = hemisphereLights[0];
-                           
-                            float t = dot(N, vec3(0,1,0)) * 0.5 + 0.5;
-                           
-                            // Irradiance (already includes intensity!)
-                            vec3 hemiLight = mix(hemi.groundColor, hemi.skyColor, t);
-                           
-                            // Lambert diffuse
-                            vec3 indirectDiffuse = hemiLight * BRDFParam.baseColor * (1.0 / PI);
-
-                            color += indirectDiffuse;
+                            {
+                            #if NUM_HEMI_LIGHTS > 0
+                                HemisphereLight hemi = hemisphereLights[0];
+                                
+                                float t = dot(N, vec3(0,1,0)) * 0.5 + 0.5;
+                                
+                                // Irradiance (already includes intensity!)
+                                vec3 hemiLight = mix(hemi.groundColor, hemi.skyColor, t);
+                                
+                                // Lambert diffuse
+                                vec3 indirectDiffuse = hemiLight * BRDFParam.baseColor * (1.0 / PI);
+                                
+                                color += indirectDiffuse;
+                            #endif // NUM_HEMI_LIGHTS > 0
+                            }
 
                             // ----------------------------------
                             // Final color
@@ -619,14 +626,23 @@ const groundColor = 0xB97A20;  // brownish orange
 const hemisphereLight = new THREE.HemisphereLight(skyColor, groundColor, hemisphereIntensity);
 scene.add(hemisphereLight);
 
-const pointLight = new THREE.PointLight(color, 15.0, 5.0);
-
 const pointLights = [
-    new THREE.PointLight(0xff0000, 1.0, 6.0),
-    new THREE.PointLight(0x00ff00, 1.0, 6.0),
-    new THREE.PointLight(0x0000ff, 1.0, 6.0)
+    new THREE.PointLight(0xff0000, 1.0, 7.0),
+    new THREE.PointLight(0x00ff00, 1.0, 7.0),
+    new THREE.PointLight(0x0000ff, 1.0, 7.0)
 ];
-pointLights.forEach(light => scene.add(light));
+pointLights.forEach(light => 
+    {
+        light.castShadow = true;  // Enable shadows for each point light
+
+        // Optional: improve shadow quality
+        light.shadow.mapSize.width = 1024;  // default is 512
+        light.shadow.mapSize.height = 1024;
+        light.shadow.camera.near = 0.1;
+        light.shadow.camera.far = 10;
+
+        scene.add(light)
+    });
 
 // ----------------------------------------
 // Input

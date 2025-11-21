@@ -75,9 +75,8 @@ p
 .framework
 {
     display: block;
-    width: 100%;
-    text-align: center;
-    margin: 5px 0;
+    width: 800px;
+    margin: auto;
 }
 .framework h2
 {
