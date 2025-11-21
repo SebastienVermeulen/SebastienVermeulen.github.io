@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+<script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
+        "three/examples/jsm/": "https://unpkg.com/three@0.162.0/examples/jsm/"
+      }
+    }
+</script>
+<script type="module" src="./threejs.js"></script>
 <head>
     <title>Sebastien Vermeulen</title>
     <meta property="title" content="Sebastien Vermeulen">
     <meta property="description" content="three.js">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -26,16 +34,6 @@
     <meta id="viewport" name="viewport">
 </head>
 <body>
-    <script type="importmap">
-        {
-          "imports": {
-            "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
-            "three/examples/jsm/": "https://unpkg.com/three@0.162.0/examples/jsm/"
-          }
-        }
-    </script>
-    <script type="module" src="./threejs.js"></script>
-
     <header>
         <link rel="icon" href="../images/profile.png">
         <nav>
@@ -76,7 +74,7 @@
             </div>
         </nav>
     </header>
-    
+
     <section class="main-section">
         <div class="title">
             <h1>three.js</h1>
