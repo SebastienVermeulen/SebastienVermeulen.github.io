@@ -71,6 +71,7 @@ p
     width: 100%;
     max-width: 100%;  /* don’t overflow */
     height: 100%;
+    touch-action: none;
 }
 
 .framework
